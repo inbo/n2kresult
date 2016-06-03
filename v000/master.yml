@@ -10,3 +10,6 @@ databaseChangeLog:
 
   - include:
       file: "v000/location_group.yml"
+
+  - include:
+      file: "v000/species_group.yml"
