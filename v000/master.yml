@@ -1,3 +1,7 @@
 databaseChangeLog:
   - include:
       file: "v000/model_type.yml"
+
+  - include:
+      file: "v000/model_set.yml"
+
