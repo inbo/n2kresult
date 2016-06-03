@@ -5,3 +5,5 @@ databaseChangeLog:
   - include:
       file: "v000/model_set.yml"
 
+  - include:
+      file: "v000/scheme.yml"
