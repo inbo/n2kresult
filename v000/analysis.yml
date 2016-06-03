@@ -1,0 +1,109 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_analysis
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "analysis"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: model_set
+                type: varchar(40)
+                constraints:
+                  nullable: false
+            - column:
+                name: location_group
+                type: varchar(40)
+                constraints:
+                  nullable: false
+            - column:
+                name: species_group
+                type: varchar(40)
+                constraints:
+                  nullable: false
+            - column:
+                name: last_year
+                type: smallint
+            - column:
+                name: seed
+                type: int
+            - column:
+                name: analysis_version
+                type: varchar(40)
+                constraints:
+                  nullable: false
+            - column:
+                name: analysis_date
+                type: time with time zone
+            - column:
+                name: status
+                type: varchar(40)
+                constraints:
+                  nullable: false
+            - column:
+                name: status_fingerprint
+                type: varchar(40)
+                constraints:
+                  nullable: false
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_analysis_model_set
+          - baseColumnNames: model_set
+          - baseTableName: analysis
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: model_set
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_analysis_location_group
+          - baseColumnNames: location_group
+          - baseTableName: analysis
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: location_group
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_analysis_species_group
+          - baseColumnNames: species_group
+          - baseTableName: analysis
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: species_group
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_analysis_analysis_version
+          - baseColumnNames: analysis_version
+          - baseTableName: analysis
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: analysis_version
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_analysis_status
+          - baseColumnNames: status
+          - baseTableName: analysis
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: status
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'

@@ -19,3 +19,6 @@ databaseChangeLog:
 
   - include:
       file: "v000/status.yml"
+
+  - include:
+      file: "v000/analysis.yml"
