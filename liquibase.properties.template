@@ -1,0 +1,6 @@
+#Liquibase.properties
+driver: org.postgresql.Driver
+classpath: ./postgresql-jdbc4.jar
+url: jdbc:postgresql://localhost:5432/n2kresult
+username: tbd
+password: tbd
