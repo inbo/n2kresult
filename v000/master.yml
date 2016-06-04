@@ -76,3 +76,6 @@ databaseChangeLog:
 
   - include:
       file: "v000/location.yml"
+
+  - include:
+      file: "v000/location_group_location.yml"

@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_location_group_location
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "location_group_location"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: location_group
+                type: varchar(40)
+                constraints:
+                  nullable: false
+            - column:
+                name: location
+                type: varchar(40)
+                constraints:
+                  nullable: false
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_location_group_location_location_group
+          - baseColumnNames: location_group
+          - baseTableName: location_group_location
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: location_group
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_location_group_location_location
+          - baseColumnNames: location
+          - baseTableName: location_group_location
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: location
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
