@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_contrast
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "contrast"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: analysis
+                type: varchar(40)
+                constraints:
+                  nullable: false
+            - column:
+                name: description
+                type: varchar(255)
+                constraints:
+                  nullable: false
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_contrast_analysis
+          - baseColumnNames: analysis
+          - baseTableName: contrast
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: analysis
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
