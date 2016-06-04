@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_parameter_estimate
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "parameter_estimate"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: analysis
+                type: varchar(40)
+            - column:
+                name: parameter
+                type: varchar(40)
+            - column:
+                name: estimate
+                type: float
+            - column:
+                name: lcl
+                type: float
+            - column:
+                name: ucl
+                type: float
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_parameter_estimate_analysis
+          - baseColumnNames: analysis
+          - baseTableName: parameter_estimate
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: analysis
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_parameter_estimate_parameter
+          - baseColumnNames: parameter
+          - baseTableName: parameter_estimate
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: parameter
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
