@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_datasource_type
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "datasource_type"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: description
+                type: varchar(255)
+                constraints:
+                  nullable: false
