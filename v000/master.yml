@@ -46,3 +46,6 @@ databaseChangeLog:
 
   - include:
       file: "v000/analysis_version_r_package.yml"
+
+  - include:
+      file: "v000/datafield_type.yml"
