@@ -1,0 +1,63 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_datasource
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "datasource"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: description
+                type: varchar(255)
+                constraints:
+                  nullable: false
+            - column:
+                name: datasource_type
+                type: varchar(40)
+                constraints:
+                  nullable: false
+            - column:
+                name: connect_method
+                type: varchar(40)
+                constraints:
+                  nullable: false
+            - column:
+                name: connecttion_string
+                type: varchar(255)
+                constraints:
+                  nullable: false
+            - column:
+                name: username
+                type: varchar(255)
+            - column:
+                name: password
+                type: varchar(255)
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_datasource_datasource_type
+          - baseColumnNames: datasource_type
+          - baseTableName: datasource
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: datasource_type
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_datasource_connect_method
+          - baseColumnNames: connect_method
+          - baseTableName: datasource
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: connect_method
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
