@@ -40,3 +40,6 @@ databaseChangeLog:
 
   - include:
       file: "v000/analysis_relation.yml"
+
+  - include:
+      file: "v000/r_package.yml"

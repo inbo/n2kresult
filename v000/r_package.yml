@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_r_package
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "r_package"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: description
+                type: varchar(255)
+                constraints:
+                  nullable: false
+            - column:
+                name: version
+                type: varchar(255)
+            - column:
+                name: revision
+                type: varchar(255)
+            - column:
+                name: origin
+                type: varchar(255)
