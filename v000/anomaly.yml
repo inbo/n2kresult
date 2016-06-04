@@ -1,0 +1,82 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_anomaly
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "anomaly"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: anomaly_type
+                type: varchar(40)
+                constraints:
+                  nullable: false
+            - column:
+                name: datafield
+                type: varchar(40)
+                constraints:
+                  nullable: false
+            - column:
+                name: analysis
+                type: varchar(40)
+                constraints:
+                  nullable: false
+            - column:
+                name: parameter_estimate
+                type: varchar(40)
+                constraints:
+                  nullable: false
+            - column:
+                name: value
+                type: float
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_anomaly_anomaly_type
+          - baseColumnNames: anomaly_type
+          - baseTableName: anomaly
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: anomaly_type
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_anomaly_datafield
+          - baseColumnNames: datafield
+          - baseTableName: anomaly
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: datafield
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_anomaly_analysis
+          - baseColumnNames: analysis
+          - baseTableName: anomaly
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: analysis
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_anomaly_parameter_estimate
+          - baseColumnNames: parameter_estimate
+          - baseTableName: anomaly
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: parameter_estimate
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
