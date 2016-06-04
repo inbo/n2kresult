@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_source_species
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "source_species"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: description
+                type: varchar(255)
+                constraints:
+                  nullable: false
+            - column:
+                name: external_code
+                type: varchar(255)
+                constraints:
+                  nullable: false
+            - column:
+                name: datafield
+                type: varchar(40)
+                constraints:
+                  nullable: false
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_source_species_datafield
+          - baseColumnNames: datafield
+          - baseTableName: source_species
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: datafield
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'

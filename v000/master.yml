@@ -79,3 +79,6 @@ databaseChangeLog:
 
   - include:
       file: "v000/location_group_location.yml"
+
+  - include:
+      file: "v000/source_species.yml"
