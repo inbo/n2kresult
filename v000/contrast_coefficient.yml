@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_contrast_coefficient
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "contrast_coefficient"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: contrast
+                type: varchar(40)
+                constraints:
+                  nullable: false
+            - column:
+                name: parameter_estimate
+                type: varchar(40)
+                constraints:
+                  nullable: false
+            - column:
+                name: constant
+                type: float
+                constraints:
+                  nullable: false
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_contrast_coefficient_contrast
+          - baseColumnNames: contrast
+          - baseTableName: contrast_coefficient
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: contrast
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_contrast_coefficient_parameter_estimate
+          - baseColumnNames: parameter_estimate
+          - baseTableName: contrast_coefficient
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: parameter_estimate
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'

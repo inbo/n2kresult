@@ -67,3 +67,6 @@ databaseChangeLog:
 
   - include:
       file: "v000/contrast.yml"
+
+  - include:
+      file: "v000/contrast_coefficient.yml"
