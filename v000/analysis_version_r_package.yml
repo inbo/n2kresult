@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_analysis_version_r_package
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "analysis_version_r_package"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: analysis_version
+                type: varchar(40)
+                constraints:
+                  nullable: false
+            - column:
+                name: r_package
+                type: varchar(40)
+                constraints:
+                  nullable: false
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_analysis_version_r_package_analysis_version
+          - baseColumnNames: analysis_version
+          - baseTableName: analysis_version_r_package
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: analysis_version
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_analysis_version_r_package_r_package
+          - baseColumnNames: r_package
+          - baseTableName: analysis_version_r_package
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: r_package
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
