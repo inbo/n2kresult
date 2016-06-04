@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_analysis_dataset
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "analysis_dataset"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: analysis
+                type: varchar(40)
+                constraints:
+                  nullable: false
+            - column:
+                name: dataset
+                type: varchar(40)
+                constraints:
+                  nullable: false
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_analysis_dataset_analysis
+          - baseColumnNames: analysis
+          - baseTableName: analysis_dataset
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: analysis
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_analysis_dataset_dataset
+          - baseColumnNames: dataset
+          - baseTableName: analysis_dataset
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: dataset
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
