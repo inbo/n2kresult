@@ -58,3 +58,6 @@ databaseChangeLog:
 
   - include:
       file: "v000/parameter_estimate.yml"
+
+  - include:
+      file: "v000/anomaly_type.yml"
