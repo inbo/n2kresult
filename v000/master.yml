@@ -49,3 +49,6 @@ databaseChangeLog:
 
   - include:
       file: "v000/datafield_type.yml"
+
+  - include:
+      file: "v000/datafield.yml"

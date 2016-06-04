@@ -1,0 +1,57 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_datafield
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "datafield"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: datasource
+                type: varchar(40)
+                constraints:
+                  nullable: false
+            - column:
+                name: table_name
+                type: varchar(255)
+                constraints:
+                  nullable: false
+            - column:
+                name: primary_key
+                type: varchar(255)
+                constraints:
+                  nullable: false
+            - column:
+                name: datafield_type
+                type: varchar(40)
+                constraints:
+                  nullable: false
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_datafield_datasource
+          - baseColumnNames: datasource
+          - baseTableName: datafield
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: datasource
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_datafield_datafield_type
+          - baseColumnNames: datafield_type
+          - baseTableName: datafield
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: datafield
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
