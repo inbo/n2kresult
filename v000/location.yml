@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_location
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "location"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: description
+                type: varchar(255)
+                constraints:
+                  nullable: false
+            - column:
+                name: parent_location
+                type: varchar(40)
+                constraints:
+                  nullable: false
+            - column:
+                name: datafield
+                type: varchar(40)
+            - column:
+                name: external_code
+                type: varchar(255)
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_location_location
+          - baseColumnNames: parent_location
+          - baseTableName: location
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: location
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_location_datafield
+          - baseColumnNames: datafield
+          - baseTableName: location
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: datafield
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
