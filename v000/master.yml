@@ -31,3 +31,6 @@ databaseChangeLog:
 
   - include:
       file: "v000/datasource.yml"
+
+  - include:
+      file: "v000/dataset.yml"
