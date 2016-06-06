@@ -28,3 +28,26 @@ databaseChangeLog:
             - column:
                 name: nbn_key
                 type: varchar(255)
+
+        - createTable:
+          - tableName: "species"
+          - schemaName: "staging"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+            - column:
+                name: dutch_name
+                type: varchar(255)
+            - column:
+                name: scientific_name
+                type: varchar(255)
+            - column:
+                name: english_name
+                type: varchar(255)
+            - column:
+                name: french_name
+                type: varchar(255)
+            - column:
+                name: nbn_key
+                type: varchar(255)

@@ -45,3 +45,26 @@ databaseChangeLog:
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
           - onUpdate: 'RESTRICT'
+
+        - createTable:
+          - tableName: "dataset"
+          - schemaName: "staging"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+            - column:
+                name: filename
+                type: varchar(255)
+            - column:
+                name: path
+                type: varchar(255)
+            - column:
+                name: datasource
+                type: varchar(40)
+            - column:
+                name: obsolete
+                type: bit
+            - column:
+                name: import_date
+                type: time with timezone

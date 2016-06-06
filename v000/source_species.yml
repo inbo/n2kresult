@@ -39,3 +39,20 @@ databaseChangeLog:
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
           - onUpdate: 'RESTRICT'
+
+        - createTable:
+          - tableName: "source_species"
+          - schemaName: "staging"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+            - column:
+                name: description
+                type: varchar(255)
+            - column:
+                name: external_code
+                type: varchar(255)
+            - column:
+                name: datafield
+                type: varchar(40)

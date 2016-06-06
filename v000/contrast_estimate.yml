@@ -40,3 +40,23 @@ databaseChangeLog:
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
           - onUpdate: 'RESTRICT'
+
+        - createTable:
+          - tableName: "contrast_estimate"
+          - schemaName: "staging"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+            - column:
+                name: contrast
+                type: varchar(40)
+            - column:
+                name: estimate
+                type: float
+            - column:
+                name: lcl
+                type: float
+            - column:
+                name: ucl
+                type: float

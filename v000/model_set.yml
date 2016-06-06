@@ -27,6 +27,7 @@ databaseChangeLog:
             - column:
                 name: duration
                 type: smallint
+
         - addForeignKeyConstraint:
           - constraintName: fk_model_set_model_type
           - baseColumnNames: model_type
@@ -37,3 +38,23 @@ databaseChangeLog:
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
           - onUpdate: 'RESTRICT'
+
+        - createTable:
+          - tableName: "model_set"
+          - schemaName: "staging"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+            - column:
+                name: model_type
+                type: varchar(40)
+            - column:
+                name: first_year
+                type: smallint
+            - column:
+                name: last_year
+                type: smallint
+            - column:
+                name: duration
+                type: smallint

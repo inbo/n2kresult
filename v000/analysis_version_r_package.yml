@@ -45,3 +45,17 @@ databaseChangeLog:
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
           - onUpdate: 'RESTRICT'
+
+        - createTable:
+          - tableName: "analysis_version_r_package"
+          - schemaName: "staging"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+            - column:
+                name: analysis_version
+                type: varchar(40)
+            - column:
+                name: r_package
+                type: varchar(40)

@@ -55,3 +55,23 @@ databaseChangeLog:
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
           - onUpdate: 'RESTRICT'
+
+        - createTable:
+          - tableName: "datafield"
+          - schemaName: "staging"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+            - column:
+                name: datasource
+                type: varchar(40)
+            - column:
+                name: table_name
+                type: varchar(255)
+            - column:
+                name: primary_key
+                type: varchar(255)
+            - column:
+                name: datafield_type
+                type: varchar(40)

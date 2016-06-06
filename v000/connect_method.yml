@@ -18,3 +18,14 @@ databaseChangeLog:
                 type: varchar(255)
                 constraints:
                   nullable: false
+
+        - createTable:
+          - tableName: "connect_method"
+          - schemaName: "staging"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+            - column:
+                name: description
+                type: varchar(255)

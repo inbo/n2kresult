@@ -27,3 +27,23 @@ databaseChangeLog:
             - column:
                 name: origin
                 type: varchar(255)
+
+        - createTable:
+          - tableName: "r_package"
+          - schemaName: "staging"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+            - column:
+                name: description
+                type: varchar(255)
+            - column:
+                name: version
+                type: varchar(255)
+            - column:
+                name: revision
+                type: varchar(255)
+            - column:
+                name: origin
+                type: varchar(255)

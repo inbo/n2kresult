@@ -50,3 +50,20 @@ databaseChangeLog:
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
           - onUpdate: 'RESTRICT'
+
+        - createTable:
+          - tableName: "contrast_coefficient"
+          - schemaName: "staging"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+            - column:
+                name: contrast
+                type: varchar(40)
+            - column:
+                name: parameter_estimate
+                type: varchar(40)
+            - column:
+                name: constant
+                type: float
