@@ -88,3 +88,6 @@ databaseChangeLog:
 
   - include:
       file: "v000/species_group_species.yml"
+
+  - include:
+      file: "v000/source_species_species.yml"
