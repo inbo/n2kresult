@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_species_group_species
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "species_group_species"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: species_group
+                type: varchar(40)
+                constraints:
+                  nullable: false
+            - column:
+                name: species
+                type: varchar(40)
+                constraints:
+                  nullable: false
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_species_group_species_species_group
+          - baseColumnNames: species_group
+          - baseTableName: species_group_species
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: species_group
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_species_group_species_species
+          - baseColumnNames: species
+          - baseTableName: species_group_species
+          - baseTableSchemaName: public
+          - referencedColumnNames: fingerprint
+          - referencedTableName: species
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
