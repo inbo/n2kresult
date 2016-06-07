@@ -28,6 +28,26 @@ databaseChangeLog:
                 name: origin
                 type: varchar(255)
 
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: description
+                type: varchar(255)
+            - column:
+                name: version
+                type: varchar(255)
+            - column:
+                name: revision
+                type: varchar(255)
+            - column:
+                name: origin
+                type: varchar(255)
+            unique: true
+            indexName: idx_r_package_revision
+            schemaName: public
+            tableName: r_package
+
         - createTable:
           - tableName: "r_package"
           - schemaName: "staging"
