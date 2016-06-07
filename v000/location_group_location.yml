@@ -8,12 +8,6 @@ databaseChangeLog:
           - schemaName: "public"
           - columns:
             - column:
-                name: fingerprint
-                type: varchar(40)
-                constraints:
-                  primaryKey: true
-                  nullable: false
-            - column:
                 name: location_group
                 type: varchar(40)
                 constraints:
@@ -23,6 +17,12 @@ databaseChangeLog:
                 type: varchar(40)
                 constraints:
                   nullable: false
+
+        - addPrimaryKey:
+            columnNames: location_group, location
+            constraintName: pk_location_group_location
+            schemaName: public
+            tableName: location_group_location
 
         - addForeignKeyConstraint:
           - constraintName: fk_location_group_location_location_group
@@ -50,9 +50,6 @@ databaseChangeLog:
           - tableName: "location_group_location"
           - schemaName: "staging"
           - columns:
-            - column:
-                name: fingerprint
-                type: varchar(40)
             - column:
                 name: location_group
                 type: varchar(40)
