@@ -8,12 +8,6 @@ databaseChangeLog:
           - schemaName: "public"
           - columns:
             - column:
-                name: fingerprint
-                type: varchar(40)
-                constraints:
-                  primaryKey: true
-                  nullable: false
-            - column:
                 name: source_species
                 type: varchar(40)
                 constraints:
@@ -23,6 +17,12 @@ databaseChangeLog:
                 type: varchar(40)
                 constraints:
                   nullable: false
+
+        - addPrimaryKey:
+            columnNames: source_species, species
+            constraintName: pk_source_species_species
+            schemaName: public
+            tableName: source_species_species
 
         - addForeignKeyConstraint:
           - constraintName: fk_source_species_species_source_species
@@ -50,9 +50,6 @@ databaseChangeLog:
           - tableName: "source_species_species"
           - schemaName: "staging"
           - columns:
-            - column:
-                name: fingerprint
-                type: varchar(40)
             - column:
                 name: source_species
                 type: varchar(40)
