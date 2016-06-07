@@ -35,6 +35,16 @@ databaseChangeLog:
           - onDelete: 'RESTRICT'
           - onUpdate: 'RESTRICT'
 
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: scheme
+                type: varchar(40)
+            indexName: idx_species_group_scheme
+            schemaName: public
+            tableName: species_group
+
         - createTable:
           - tableName: "species_group"
           - schemaName: "staging"
