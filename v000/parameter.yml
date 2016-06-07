@@ -33,6 +33,30 @@ databaseChangeLog:
           - onDelete: 'RESTRICT'
           - onUpdate: 'RESTRICT'
 
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: parent_parameter
+                type: varchar(40)
+            indexName: idx_parameter_parent_parameter
+            schemaName: public
+            tableName: parameter
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: description
+                type: varchar(40)
+            - column:
+                name: parent_parameter
+                type: varchar(40)
+            unique: true
+            indexName: idx_parameter_parent_description
+            schemaName: public
+            tableName: parameter
+
         - createTable:
           - tableName: "parameter"
           - schemaName: "staging"
