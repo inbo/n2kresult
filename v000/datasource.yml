@@ -62,6 +62,26 @@ databaseChangeLog:
           - onDelete: 'RESTRICT'
           - onUpdate: 'RESTRICT'
 
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: datasource_type
+                type: varchar(40)
+            indexName: idx_datasource_datasource_type
+            schemaName: public
+            tableName: datasource
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: connect_method
+                type: varchar(40)
+            indexName: idx_datasource_connect_method
+            schemaName: public
+            tableName: datasource
+
         - createTable:
           - tableName: "datasource"
           - schemaName: "staging"
