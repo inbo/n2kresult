@@ -108,6 +108,68 @@ databaseChangeLog:
           - onDelete: 'RESTRICT'
           - onUpdate: 'RESTRICT'
 
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: model_set
+                type: varchar(40)
+            unique: true
+            indexName: idx_analysis_model_set
+            schemaName: public
+            tableName: analysis
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: location_group
+                type: varchar(40)
+            unique: true
+            indexName: idx_analysis_location_group
+            schemaName: public
+            tableName: analysis
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: species_group
+                type: varchar(40)
+            unique: true
+            indexName: idx_analysis_species_group
+            schemaName: public
+            tableName: analysis
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: analysis_version
+                type: varchar(40)
+            unique: true
+            indexName: idx_analysis_version
+            schemaName: public
+            tableName: analysis
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: status
+                type: varchar(40)
+            unique: true
+            indexName: idx_analysis_status
+            schemaName: public
+            tableName: analysis
+
+        - addUniqueConstraint:
+            catalogName: cat
+            columnNames: model_set, location_group, species_group, last_year, analysis_version, analysis_date
+            constraintName: const_analysis
+            schemaName: public
+            tableName: analysis
+
         - createTable:
           - tableName: "analysis"
           - schemaName: "staging"
