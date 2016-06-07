@@ -17,6 +17,7 @@ databaseChangeLog:
                 name: description
                 type: varchar(255)
                 constraints:
+                  unique: true
                   nullable: false
 
         - createTable:
