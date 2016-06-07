@@ -46,7 +46,7 @@ databaseChangeLog:
           - baseTableName: contrast_coefficient
           - baseTableSchemaName: public
           - referencedColumnNames: fingerprint
-          - referencedTableName: parameter_estimate
+          - referencedTableName: parameter
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
           - onUpdate: 'RESTRICT'
@@ -89,7 +89,7 @@ databaseChangeLog:
                 name: contrast
                 type: varchar(40)
             - column:
-                name: parameter_estimate
+                name: parameter
                 type: varchar(40)
             - column:
                 name: constant
