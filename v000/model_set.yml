@@ -39,6 +39,26 @@ databaseChangeLog:
           - onDelete: 'RESTRICT'
           - onUpdate: 'RESTRICT'
 
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: model_type
+                type: varchar(40)
+            - column:
+                name: first_year
+                type: smallint
+            - column:
+                name: last_year
+                type: smallint
+            - column:
+                name: duration
+                type: smallint
+            unique: true
+            indexName: idx_model_set_general
+            schemaName: public
+            tableName: model_set
+
         - createTable:
           - tableName: "model_set"
           - schemaName: "staging"
