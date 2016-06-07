@@ -37,6 +37,46 @@ databaseChangeLog:
                 name: value
                 type: float
 
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: anomaly_type
+                type: varchar(40)
+            indexName: idx_anomaly_anomaly_type
+            schemaName: public
+            tableName: anomaly
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: datafield
+                type: varchar(40)
+            indexName: idx_anomaly_datafield
+            schemaName: public
+            tableName: anomaly
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: analysis
+                type: varchar(40)
+            indexName: idx_anomaly_analysis
+            schemaName: public
+            tableName: anomaly
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: parameter
+                type: varchar(40)
+            indexName: idx_anomaly_parameter
+            schemaName: public
+            tableName: anomaly
+
         - addForeignKeyConstraint:
           - constraintName: fk_anomaly_anomaly_type
           - baseColumnNames: anomaly_type
