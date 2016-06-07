@@ -40,6 +40,20 @@ databaseChangeLog:
           - onDelete: 'RESTRICT'
           - onUpdate: 'RESTRICT'
 
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: datafield
+                type: varchar(40)
+            - column:
+                name: external_code
+                type: varchar(255)
+            unique: true
+            indexName: idx_source_species_datafield
+            schemaName: public
+            tableName: source_species
+
         - createTable:
           - tableName: "source_species"
           - schemaName: "staging"
