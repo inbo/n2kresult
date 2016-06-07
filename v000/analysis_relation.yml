@@ -8,12 +8,6 @@ databaseChangeLog:
           - schemaName: "public"
           - columns:
             - column:
-                name: fingerprint
-                type: varchar(40)
-                constraints:
-                  primaryKey: true
-                  nullable: false
-            - column:
                 name: analysis
                 type: varchar(40)
                 constraints:
@@ -23,6 +17,12 @@ databaseChangeLog:
                 type: varchar(40)
                 constraints:
                   nullable: false
+
+        - addPrimaryKey:
+            columnNames: source_analysis, analysis
+            constraintName: pk_analysis_relation
+            schemaName: public
+            tableName: analysis_relation
 
         - addForeignKeyConstraint:
           - constraintName: fk_analysis_relation_analysis
@@ -46,13 +46,20 @@ databaseChangeLog:
           - onDelete: 'RESTRICT'
           - onUpdate: 'RESTRICT'
 
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: analysis
+                type: varchar(40)
+            indexName: idx_analysis_relation_analysis
+            schemaName: public
+            tableName: analysis_relation
+
         - createTable:
           - tableName: "analysis_relation"
           - schemaName: "staging"
           - columns:
-            - column:
-                name: fingerprint
-                type: varchar(40)
             - column:
                 name: analysis
                 type: varchar(40)
