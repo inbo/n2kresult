@@ -8,12 +8,6 @@ databaseChangeLog:
           - schemaName: "public"
           - columns:
             - column:
-                name: fingerprint
-                type: varchar(40)
-                constraints:
-                  primaryKey: true
-                  nullable: false
-            - column:
                 name: analysis_version
                 type: varchar(40)
                 constraints:
@@ -23,6 +17,12 @@ databaseChangeLog:
                 type: varchar(40)
                 constraints:
                   nullable: false
+
+        - addPrimaryKey:
+            columnNames: analysis_version, r_package
+            constraintName: pk_analysis_version_r_package
+            schemaName: public
+            tableName: analysis_version_r_package
 
         - addForeignKeyConstraint:
           - constraintName: fk_analysis_version_r_package_analysis_version
@@ -50,9 +50,6 @@ databaseChangeLog:
           - tableName: "analysis_version_r_package"
           - schemaName: "staging"
           - columns:
-            - column:
-                name: fingerprint
-                type: varchar(40)
             - column:
                 name: analysis_version
                 type: varchar(40)
