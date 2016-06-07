@@ -56,6 +56,30 @@ databaseChangeLog:
           - onDelete: 'RESTRICT'
           - onUpdate: 'RESTRICT'
 
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: datasource
+                type: varchar(40)
+            - column:
+                name: table_name
+                type: varchar(255)
+            unique: true
+            indexName: idx_datafield_datasource_table
+            schemaName: public
+            tableName: datafield
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: datafield_type
+                type: varchar(40)
+            indexName: idx_datafield_datafield_type
+            schemaName: public
+            tableName: datafield
+
         - createTable:
           - tableName: "datafield"
           - schemaName: "staging"
