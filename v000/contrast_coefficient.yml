@@ -19,7 +19,7 @@ databaseChangeLog:
                 constraints:
                   nullable: false
             - column:
-                name: parameter_estimate
+                name: parameter
                 type: varchar(40)
                 constraints:
                   nullable: false
@@ -41,8 +41,8 @@ databaseChangeLog:
           - onUpdate: 'RESTRICT'
 
         - addForeignKeyConstraint:
-          - constraintName: fk_contrast_coefficient_parameter_estimate
-          - baseColumnNames: parameter_estimate
+          - constraintName: fk_contrast_coefficient_parameter
+          - baseColumnNames: parameter
           - baseTableName: contrast_coefficient
           - baseTableSchemaName: public
           - referencedColumnNames: fingerprint
@@ -50,6 +50,33 @@ databaseChangeLog:
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
           - onUpdate: 'RESTRICT'
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: contrast
+                type: varchar(40)
+            indexName: idx_contrast_coefficient_contrast
+            schemaName: public
+            tableName: contrast_coefficient
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: parameter
+                type: varchar(40)
+            indexName: idx_contrast_coefficient_parameter
+            schemaName: public
+            tableName: contrast_coefficient
+
+        - addUniqueConstraint:
+            catalogName: cat
+            columnNames: contrast, parameter
+            constraintName: const_contrast_coefficient_contrast_parameter
+            schemaName: public
+            tableName: contrast_coefficient
 
         - createTable:
           - tableName: "contrast_coefficient"
