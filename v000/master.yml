@@ -72,9 +72,6 @@ databaseChangeLog:
       file: "v000/contrast_coefficient.yml"
 
   - include:
-      file: "v000/contrast_estimate.yml"
-
-  - include:
       file: "v000/location.yml"
 
   - include:

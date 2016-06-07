@@ -23,6 +23,15 @@ databaseChangeLog:
                 type: varchar(255)
                 constraints:
                   nullable: false
+            - column:
+                name: estimate
+                type: float
+            - column:
+                name: lcl
+                type: float
+            - column:
+                name: ucl
+                type: float
 
         - addForeignKeyConstraint:
           - constraintName: fk_contrast_analysis
