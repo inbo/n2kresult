@@ -29,7 +29,7 @@ databaseChangeLog:
                 constraints:
                   nullable: false
             - column:
-                name: parameter_estimate
+                name: parameter
                 type: varchar(40)
                 constraints:
                   nullable: false
@@ -71,12 +71,12 @@ databaseChangeLog:
           - onUpdate: 'RESTRICT'
 
         - addForeignKeyConstraint:
-          - constraintName: fk_anomaly_parameter_estimate
-          - baseColumnNames: parameter_estimate
+          - constraintName: fk_anomaly_parameter
+          - baseColumnNames: parameter
           - baseTableName: anomaly
           - baseTableSchemaName: public
           - referencedColumnNames: fingerprint
-          - referencedTableName: parameter_estimate
+          - referencedTableName: parameter
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
           - onUpdate: 'RESTRICT'
@@ -98,7 +98,7 @@ databaseChangeLog:
                 name: analysis
                 type: varchar(40)
             - column:
-                name: parameter_estimate
+                name: parameter
                 type: varchar(40)
             - column:
                 name: value
