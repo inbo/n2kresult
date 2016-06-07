@@ -35,6 +35,20 @@ databaseChangeLog:
           - onDelete: 'RESTRICT'
           - onUpdate: 'RESTRICT'
 
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: scheme
+                type: varchar(40)
+            - column:
+                name: description
+                type: varchar(255)
+            unique: true
+            indexName: idx_location_group_scheme_description
+            schemaName: public
+            tableName: location_group
+
         - createTable:
           - tableName: "location_group"
           - schemaName: "staging"
