@@ -29,6 +29,17 @@ databaseChangeLog:
                 name: nbn_key
                 type: varchar(255)
 
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: nbn_key
+                type: varchar(255)
+            unique: true
+            indexName: idx_species_nbn_key
+            schemaName: public
+            tableName: species
+
         - createTable:
           - tableName: "species"
           - schemaName: "staging"
