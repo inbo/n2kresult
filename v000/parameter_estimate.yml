@@ -8,12 +8,6 @@ databaseChangeLog:
           - schemaName: "public"
           - columns:
             - column:
-                name: fingerprint
-                type: varchar(40)
-                constraints:
-                  primaryKey: true
-                  nullable: false
-            - column:
                 name: analysis
                 type: int
             - column:
@@ -28,6 +22,12 @@ databaseChangeLog:
             - column:
                 name: ucl
                 type: float
+
+        - addPrimaryKey:
+            columnNames: analysis, parameter
+            constraintName: pk_parameter_estimate
+            schemaName: public
+            tableName: parameter_estimate
 
         - addForeignKeyConstraint:
           - constraintName: fk_parameter_estimate_analysis
@@ -82,9 +82,6 @@ databaseChangeLog:
           - tableName: "parameter_estimate"
           - schemaName: "staging"
           - columns:
-            - column:
-                name: fingerprint
-                type: varchar(40)
             - column:
                 name: analysis
                 type: varchar(40)
