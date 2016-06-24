@@ -15,7 +15,7 @@ databaseChangeLog:
                   nullable: false
             - column:
                 name: anomaly_type
-                type: varchar(40)
+                type: smallint
                 constraints:
                   nullable: false
             - column:
@@ -42,7 +42,7 @@ databaseChangeLog:
             columns:
             - column:
                 name: anomaly_type
-                type: varchar(40)
+                type: smallint
             indexName: idx_anomaly_anomaly_type
             schemaName: public
             tableName: anomaly
@@ -62,7 +62,7 @@ databaseChangeLog:
             columns:
             - column:
                 name: analysis
-                type: integer
+                type: int
             indexName: idx_anomaly_analysis
             schemaName: public
             tableName: anomaly
@@ -82,7 +82,7 @@ databaseChangeLog:
           - baseColumnNames: anomaly_type
           - baseTableName: anomaly
           - baseTableSchemaName: public
-          - referencedColumnNames: fingerprint
+          - referencedColumnNames: id
           - referencedTableName: anomaly_type
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
