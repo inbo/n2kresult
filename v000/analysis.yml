@@ -25,7 +25,7 @@ databaseChangeLog:
                   nullable: false
             - column:
                 name: species_group
-                type: varchar(40)
+                type: smallint
                 constraints:
                   nullable: false
             - column:
@@ -80,7 +80,7 @@ databaseChangeLog:
           - baseColumnNames: species_group
           - baseTableName: analysis
           - baseTableSchemaName: public
-          - referencedColumnNames: fingerprint
+          - referencedColumnNames: id
           - referencedTableName: species_group
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
@@ -133,7 +133,7 @@ databaseChangeLog:
             columns:
             - column:
                 name: species_group
-                type: varchar(40)
+                type: smallint
             indexName: idx_analysis_species_group
             schemaName: public
             tableName: analysis
@@ -180,7 +180,7 @@ databaseChangeLog:
                 type: smallint
             - column:
                 name: species_group
-                type: varchar(40)
+                type: smallint
             - column:
                 name: last_year
                 type: smallint
