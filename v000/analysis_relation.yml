@@ -9,12 +9,12 @@ databaseChangeLog:
           - columns:
             - column:
                 name: analysis
-                type: integer
+                type: int
                 constraints:
                   nullable: false
             - column:
                 name: source_analysis
-                type: integer
+                type: int
                 constraints:
                   nullable: false
 
@@ -51,7 +51,7 @@ databaseChangeLog:
             columns:
             - column:
                 name: analysis
-                type: integer
+                type: int
             indexName: idx_analysis_relation_analysis
             schemaName: public
             tableName: analysis_relation

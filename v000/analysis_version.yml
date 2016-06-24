@@ -28,7 +28,7 @@ databaseChangeLog:
           - columns:
             - column:
                 name: id
-                type: integer
+                type: int
             - column:
                 name: fingerprint
                 type: varchar(40)

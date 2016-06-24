@@ -9,12 +9,12 @@ databaseChangeLog:
           - columns:
             - column:
                 name: analysis_version
-                type: integer
+                type: int
                 constraints:
                   nullable: false
             - column:
                 name: r_package
-                type: varchar(40)
+                type: int
                 constraints:
                   nullable: false
 
@@ -40,7 +40,7 @@ databaseChangeLog:
           - baseColumnNames: r_package
           - baseTableName: analysis_version_r_package
           - baseTableSchemaName: public
-          - referencedColumnNames: fingerprint
+          - referencedColumnNames: id
           - referencedTableName: r_package
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
