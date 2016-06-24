@@ -8,8 +8,8 @@ databaseChangeLog:
           - schemaName: "public"
           - columns:
             - column:
-                name: fingerprint
-                type: varchar(40)
+                name: id
+                type: serial
                 constraints:
                   primaryKey: true
                   nullable: false
@@ -86,6 +86,9 @@ databaseChangeLog:
           - tableName: "datasource"
           - schemaName: "staging"
           - columns:
+            - column:
+                name: id
+                type: int
             - column:
                 name: fingerprint
                 type: varchar(40)
