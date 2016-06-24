@@ -36,7 +36,7 @@ databaseChangeLog:
                 type: int
             - column:
                 name: analysis_version
-                type: varchar(40)
+                type: int
                 constraints:
                   nullable: false
             - column:
@@ -91,7 +91,7 @@ databaseChangeLog:
           - baseColumnNames: analysis_version
           - baseTableName: analysis
           - baseTableSchemaName: public
-          - referencedColumnNames: fingerprint
+          - referencedColumnNames: id
           - referencedTableName: analysis_version
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
@@ -143,7 +143,7 @@ databaseChangeLog:
             columns:
             - column:
                 name: analysis_version
-                type: varchar(40)
+                type: int
             indexName: idx_analysis_version
             schemaName: public
             tableName: analysis

@@ -9,7 +9,7 @@ databaseChangeLog:
           - columns:
             - column:
                 name: analysis_version
-                type: varchar(40)
+                type: integer
                 constraints:
                   nullable: false
             - column:
@@ -29,7 +29,7 @@ databaseChangeLog:
           - baseColumnNames: analysis_version
           - baseTableName: analysis_version_r_package
           - baseTableSchemaName: public
-          - referencedColumnNames: fingerprint
+          - referencedColumnNames: id
           - referencedTableName: analysis_version
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
