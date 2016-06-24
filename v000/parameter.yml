@@ -8,14 +8,20 @@ databaseChangeLog:
           - schemaName: "public"
           - columns:
             - column:
-                name: fingerprint
-                type: varchar(40)
+                name: id
+                type: serial
                 constraints:
                   primaryKey: true
                   nullable: false
             - column:
-                name: parent_parameter
+                name: fingerprint
                 type: varchar(40)
+                constraints:
+                  unique: true
+                  nullable: false
+            - column:
+                name: parent_parameter
+                type: int
             - column:
                 name: description
                 type: varchar(255)
@@ -27,7 +33,7 @@ databaseChangeLog:
           - baseColumnNames: parent_parameter
           - baseTableName: parameter
           - baseTableSchemaName: public
-          - referencedColumnNames: fingerprint
+          - referencedColumnNames: id
           - referencedTableName: parameter
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
@@ -38,7 +44,7 @@ databaseChangeLog:
             columns:
             - column:
                 name: parent_parameter
-                type: varchar(40)
+                type: int
             indexName: idx_parameter_parent_parameter
             schemaName: public
             tableName: parameter
@@ -48,10 +54,10 @@ databaseChangeLog:
             columns:
             - column:
                 name: description
-                type: varchar(40)
+                type: varchar(255)
             - column:
                 name: parent_parameter
-                type: varchar(40)
+                type: int
             unique: true
             indexName: idx_parameter_parent_description
             schemaName: public

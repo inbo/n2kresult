@@ -15,10 +15,10 @@ databaseChangeLog:
                   nullable: false
             - column:
                 name: analysis
-                type: integer
+                type: int
             - column:
                 name: parameter
-                type: varchar(40)
+                type: int
             - column:
                 name: estimate
                 type: float
@@ -45,7 +45,7 @@ databaseChangeLog:
           - baseColumnNames: parameter
           - baseTableName: parameter_estimate
           - baseTableSchemaName: public
-          - referencedColumnNames: fingerprint
+          - referencedColumnNames: id
           - referencedTableName: parameter
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
@@ -66,7 +66,7 @@ databaseChangeLog:
             columns:
             - column:
                 name: parameter
-                type: varchar(40)
+                type: int
             indexName: idx_parameter_estimate_parameter
             schemaName: public
             tableName: parameter_estimate
