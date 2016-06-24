@@ -9,7 +9,7 @@ databaseChangeLog:
           - columns:
             - column:
                 name: source_species
-                type: varchar(40)
+                type: smallint
                 constraints:
                   nullable: false
             - column:
@@ -29,7 +29,7 @@ databaseChangeLog:
           - baseColumnNames: source_species
           - baseTableName: source_species_species
           - baseTableSchemaName: public
-          - referencedColumnNames: fingerprint
+          - referencedColumnNames: id
           - referencedTableName: source_species
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
