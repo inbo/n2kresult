@@ -8,12 +8,6 @@ databaseChangeLog:
           - schemaName: "public"
           - columns:
             - column:
-                name: fingerprint
-                type: varchar(40)
-                constraints:
-                  primaryKey: true
-                  nullable: false
-            - column:
                 name: contrast
                 type: int
                 constraints:
@@ -28,6 +22,12 @@ databaseChangeLog:
                 type: float
                 constraints:
                   nullable: false
+
+        - addPrimaryKey:
+            columnNames: contrast, parameter
+            constraintName: pk_contrast_coefficient
+            schemaName: public
+            tableName: contrast_coefficient
 
         - addForeignKeyConstraint:
           - constraintName: fk_contrast_coefficient_contrast
@@ -71,20 +71,10 @@ databaseChangeLog:
             schemaName: public
             tableName: contrast_coefficient
 
-        - addUniqueConstraint:
-            catalogName: cat
-            columnNames: contrast, parameter
-            constraintName: const_contrast_coefficient_contrast_parameter
-            schemaName: public
-            tableName: contrast_coefficient
-
         - createTable:
           - tableName: "contrast_coefficient"
           - schemaName: "staging"
           - columns:
-            - column:
-                name: fingerprint
-                type: varchar(40)
             - column:
                 name: contrast
                 type: varchar(40)
