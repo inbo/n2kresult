@@ -25,7 +25,7 @@ databaseChangeLog:
                   nullable: false
             - column:
                 name: datafield
-                type: varchar(40)
+                type: int
                 constraints:
                   nullable: false
 
@@ -34,7 +34,7 @@ databaseChangeLog:
           - baseColumnNames: datafield
           - baseTableName: source_species
           - baseTableSchemaName: public
-          - referencedColumnNames: fingerprint
+          - referencedColumnNames: id
           - referencedTableName: datafield
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
@@ -45,7 +45,7 @@ databaseChangeLog:
             columns:
             - column:
                 name: datafield
-                type: varchar(40)
+                type: int
             - column:
                 name: external_code
                 type: varchar(255)

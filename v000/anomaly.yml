@@ -20,7 +20,7 @@ databaseChangeLog:
                   nullable: false
             - column:
                 name: datafield
-                type: varchar(40)
+                type: int
                 constraints:
                   nullable: false
             - column:
@@ -52,7 +52,7 @@ databaseChangeLog:
             columns:
             - column:
                 name: datafield
-                type: varchar(40)
+                type: int
             indexName: idx_anomaly_datafield
             schemaName: public
             tableName: anomaly
@@ -93,7 +93,7 @@ databaseChangeLog:
           - baseColumnNames: datafield
           - baseTableName: anomaly
           - baseTableSchemaName: public
-          - referencedColumnNames: fingerprint
+          - referencedColumnNames: id
           - referencedTableName: datafield
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
