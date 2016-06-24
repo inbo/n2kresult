@@ -9,7 +9,7 @@ databaseChangeLog:
           - columns:
             - column:
                 name: location_group
-                type: varchar(40)
+                type: smallint
                 constraints:
                   nullable: false
             - column:
@@ -29,7 +29,7 @@ databaseChangeLog:
           - baseColumnNames: location_group
           - baseTableName: location_group_location
           - baseTableSchemaName: public
-          - referencedColumnNames: fingerprint
+          - referencedColumnNames: id
           - referencedTableName: location_group
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
@@ -52,7 +52,7 @@ databaseChangeLog:
           - columns:
             - column:
                 name: location_group
-                type: varchar(40)
+                type: smallint
             - column:
                 name: location
                 type: varchar(40)

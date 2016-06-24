@@ -8,8 +8,8 @@ databaseChangeLog:
           - schemaName: "public"
           - columns:
             - column:
-                name: fingerprint
-                type: varchar(40)
+                name: id
+                type: smallserial
                 constraints:
                   primaryKey: true
                   nullable: false
@@ -40,7 +40,7 @@ databaseChangeLog:
             columns:
             - column:
                 name: scheme
-                type: varchar(40)
+                type: smallint
             - column:
                 name: description
                 type: varchar(255)
@@ -54,8 +54,8 @@ databaseChangeLog:
           - schemaName: "staging"
           - columns:
             - column:
-                name: fingerprint
-                type: varchar(40)
+                name: id
+                type: smallint
             - column:
                 name: description
                 type: varchar(255)

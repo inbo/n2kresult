@@ -20,7 +20,7 @@ databaseChangeLog:
                   nullable: false
             - column:
                 name: location_group
-                type: varchar(40)
+                type: smallint
                 constraints:
                   nullable: false
             - column:
@@ -69,7 +69,7 @@ databaseChangeLog:
           - baseColumnNames: location_group
           - baseTableName: analysis
           - baseTableSchemaName: public
-          - referencedColumnNames: fingerprint
+          - referencedColumnNames: id
           - referencedTableName: location_group
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
@@ -114,7 +114,6 @@ databaseChangeLog:
             - column:
                 name: model_set
                 type: smallint
-            unique: true
             indexName: idx_analysis_model_set
             schemaName: public
             tableName: analysis
@@ -124,8 +123,7 @@ databaseChangeLog:
             columns:
             - column:
                 name: location_group
-                type: varchar(40)
-            unique: true
+                type: smallint
             indexName: idx_analysis_location_group
             schemaName: public
             tableName: analysis
@@ -136,7 +134,6 @@ databaseChangeLog:
             - column:
                 name: species_group
                 type: varchar(40)
-            unique: true
             indexName: idx_analysis_species_group
             schemaName: public
             tableName: analysis
@@ -147,7 +144,6 @@ databaseChangeLog:
             - column:
                 name: analysis_version
                 type: varchar(40)
-            unique: true
             indexName: idx_analysis_version
             schemaName: public
             tableName: analysis
@@ -158,7 +154,6 @@ databaseChangeLog:
             - column:
                 name: status
                 type: varchar(40)
-            unique: true
             indexName: idx_analysis_status
             schemaName: public
             tableName: analysis
@@ -182,7 +177,7 @@ databaseChangeLog:
                 type: smallint
             - column:
                 name: location_group
-                type: varchar(40)
+                type: smallint
             - column:
                 name: species_group
                 type: varchar(40)
