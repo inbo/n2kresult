@@ -8,8 +8,8 @@ databaseChangeLog:
           - schemaName: "public"
           - columns:
             - column:
-                name: fingerprint
-                type: varchar(40)
+                name: id
+                type: smallserial
                 constraints:
                   primaryKey: true
                   nullable: false
@@ -19,14 +19,3 @@ databaseChangeLog:
                 constraints:
                   unique: true
                   nullable: false
-
-        - createTable:
-          - tableName: "scheme"
-          - schemaName: "staging"
-          - columns:
-            - column:
-                name: fingerprint
-                type: varchar(40)
-            - column:
-                name: description
-                type: varchar(255)
