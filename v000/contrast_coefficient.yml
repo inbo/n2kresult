@@ -15,7 +15,7 @@ databaseChangeLog:
                   nullable: false
             - column:
                 name: contrast
-                type: varchar(40)
+                type: int
                 constraints:
                   nullable: false
             - column:
@@ -34,7 +34,7 @@ databaseChangeLog:
           - baseColumnNames: contrast
           - baseTableName: contrast_coefficient
           - baseTableSchemaName: public
-          - referencedColumnNames: fingerprint
+          - referencedColumnNames: id
           - referencedTableName: contrast
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
@@ -56,7 +56,7 @@ databaseChangeLog:
             columns:
             - column:
                 name: contrast
-                type: varchar(40)
+                type: int
             indexName: idx_contrast_coefficient_contrast
             schemaName: public
             tableName: contrast_coefficient
