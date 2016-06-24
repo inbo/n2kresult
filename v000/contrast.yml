@@ -15,7 +15,7 @@ databaseChangeLog:
                   nullable: false
             - column:
                 name: analysis
-                type: varchar(40)
+                type: integer
                 constraints:
                   nullable: false
             - column:
@@ -38,7 +38,7 @@ databaseChangeLog:
           - baseColumnNames: analysis
           - baseTableName: contrast
           - baseTableSchemaName: public
-          - referencedColumnNames: fingerprint
+          - referencedColumnNames: id
           - referencedTableName: analysis
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
@@ -49,7 +49,7 @@ databaseChangeLog:
             columns:
             - column:
                 name: analysis
-                type: varchar(40)
+                type: integer
             - column:
                 name: description
                 type: varchar(255)

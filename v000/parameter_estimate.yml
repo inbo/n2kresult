@@ -15,7 +15,7 @@ databaseChangeLog:
                   nullable: false
             - column:
                 name: analysis
-                type: varchar(40)
+                type: integer
             - column:
                 name: parameter
                 type: varchar(40)
@@ -34,7 +34,7 @@ databaseChangeLog:
           - baseColumnNames: analysis
           - baseTableName: parameter_estimate
           - baseTableSchemaName: public
-          - referencedColumnNames: fingerprint
+          - referencedColumnNames: id
           - referencedTableName: analysis
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
@@ -56,7 +56,7 @@ databaseChangeLog:
             columns:
             - column:
                 name: analysis
-                type: varchar(40)
+                type: integer
             indexName: idx_parameter_estimate_analysis
             schemaName: public
             tableName: parameter_estimate
