@@ -44,7 +44,7 @@ databaseChangeLog:
                 type: time with time zone
             - column:
                 name: status
-                type: varchar(40)
+                type: smallint
                 constraints:
                   nullable: false
             - column:
@@ -102,7 +102,7 @@ databaseChangeLog:
           - baseColumnNames: status
           - baseTableName: analysis
           - baseTableSchemaName: public
-          - referencedColumnNames: fingerprint
+          - referencedColumnNames: id
           - referencedTableName: status
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
@@ -153,7 +153,7 @@ databaseChangeLog:
             columns:
             - column:
                 name: status
-                type: varchar(40)
+                type: smallint
             indexName: idx_analysis_status
             schemaName: public
             tableName: analysis
