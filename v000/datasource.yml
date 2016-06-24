@@ -20,7 +20,7 @@ databaseChangeLog:
                   nullable: false
             - column:
                 name: datasource_type
-                type: varchar(40)
+                type: smallint
                 constraints:
                   nullable: false
             - column:
@@ -45,7 +45,7 @@ databaseChangeLog:
           - baseColumnNames: datasource_type
           - baseTableName: datasource
           - baseTableSchemaName: public
-          - referencedColumnNames: fingerprint
+          - referencedColumnNames: id
           - referencedTableName: datasource_type
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
@@ -67,7 +67,7 @@ databaseChangeLog:
             columns:
             - column:
                 name: datasource_type
-                type: varchar(40)
+                type: smallint
             indexName: idx_datasource_datasource_type
             schemaName: public
             tableName: datasource
