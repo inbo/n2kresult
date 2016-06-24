@@ -15,7 +15,7 @@ databaseChangeLog:
                   nullable: false
             - column:
                 name: model_type
-                type: varchar(40)
+                type: smallint
                 constraints:
                   nullable: false
             - column:
@@ -33,7 +33,7 @@ databaseChangeLog:
           - baseColumnNames: model_type
           - baseTableName: model_set
           - baseTableSchemaName: public
-          - referencedColumnNames: fingerprint
+          - referencedColumnNames: id
           - referencedTableName: model_type
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
@@ -44,7 +44,7 @@ databaseChangeLog:
             columns:
             - column:
                 name: model_type
-                type: varchar(40)
+                type: smallint
             - column:
                 name: first_year
                 type: smallint
@@ -68,7 +68,7 @@ databaseChangeLog:
                 type: varchar(40)
             - column:
                 name: model_type
-                type: varchar(40)
+                type: smallint
             - column:
                 name: first_year
                 type: smallint
