@@ -33,9 +33,6 @@ databaseChangeLog:
                 type: int
                 constraints:
                   nullable: false
-            - column:
-                name: value
-                type: float
 
         - createIndex:
             catalogName: cat
@@ -140,6 +137,3 @@ databaseChangeLog:
             - column:
                 name: parameter
                 type: varchar(40)
-            - column:
-                name: value
-                type: float
