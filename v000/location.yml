@@ -8,8 +8,8 @@ databaseChangeLog:
           - schemaName: "public"
           - columns:
             - column:
-                name: fingerprint
-                type: varchar(40)
+                name: id
+                type: serial
                 constraints:
                   primaryKey: true
                   nullable: false
@@ -20,7 +20,7 @@ databaseChangeLog:
                   nullable: false
             - column:
                 name: parent_location
-                type: varchar(40)
+                type: int
                 constraints:
                   nullable: false
             - column:
@@ -35,7 +35,7 @@ databaseChangeLog:
           - baseColumnNames: parent_location
           - baseTableName: location
           - baseTableSchemaName: public
-          - referencedColumnNames: fingerprint
+          - referencedColumnNames: id
           - referencedTableName: location
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
@@ -57,7 +57,7 @@ databaseChangeLog:
             columns:
             - column:
                 name: parent_location
-                type: varchar(40)
+                type: int
             - column:
                 name: description
                 type: varchar(255)
@@ -84,6 +84,9 @@ databaseChangeLog:
           - tableName: "location"
           - schemaName: "staging"
           - columns:
+            - column:
+                name: id
+                type: int
             - column:
                 name: fingerprint
                 type: varchar(40)
