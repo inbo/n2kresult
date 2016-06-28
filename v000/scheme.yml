@@ -19,3 +19,11 @@ databaseChangeLog:
                 constraints:
                   unique: true
                   nullable: false
+
+        - createTable:
+          - tableName: "scheme"
+          - schemaName: "staging"
+          - columns:
+            - column:
+                name: description
+                type: varchar(255)
