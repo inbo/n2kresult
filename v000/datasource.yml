@@ -87,20 +87,14 @@ databaseChangeLog:
           - schemaName: "staging"
           - columns:
             - column:
-                name: id
-                type: int
-            - column:
-                name: fingerprint
-                type: varchar(40)
-            - column:
                 name: description
                 type: varchar(255)
             - column:
                 name: datasource_type
-                type: varchar(40)
+                type: varchar(255)
             - column:
                 name: connect_method
-                type: varchar(40)
+                type: varchar(255)
             - column:
                 name: connection_string
                 type: varchar(255)
