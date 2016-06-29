@@ -66,3 +66,15 @@ databaseChangeLog:
             - column:
                 name: source_analysis
                 type: varchar(40)
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.analysis_relation TO n2k_analysis;
+                 GRANT SELECT, INSERT, TRUNCATE ON staging.analysis_relation TO n2k_analysis;
+                 GRANT SELECT ON public.analysis_relation TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.analysis_relation FROM n2k_analysis;
+            REVOKE ALL ON staging.analysis_relation FROM n2k_analysis;
+            REVOKE ALL ON public.analysis_relation FROM n2k_report;
+            DROP TABLE public.analysis_relation;
+            DROP TABLE staging.analysis_relation;

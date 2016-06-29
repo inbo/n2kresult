@@ -88,3 +88,15 @@ databaseChangeLog:
             - column:
                 name: import_date
                 type: time with timezone
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.dataset TO n2k_analysis;
+                 GRANT SELECT, INSERT, TRUNCATE ON staging.dataset TO n2k_analysis;
+                 GRANT SELECT ON public.dataset TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.dataset FROM n2k_analysis;
+            REVOKE ALL ON staging.dataset FROM n2k_analysis;
+            REVOKE ALL ON public.dataset FROM n2k_report;
+            DROP TABLE public.dataset;
+            DROP TABLE staging.dataset;

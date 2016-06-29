@@ -33,3 +33,15 @@ databaseChangeLog:
             - column:
                 name: description
                 type: varchar(255)
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.status TO n2k_analysis;
+                 GRANT SELECT, INSERT, TRUNCATE ON staging.status TO n2k_analysis;
+                 GRANT SELECT ON public.status TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.status FROM n2k_analysis;
+            REVOKE ALL ON staging.status FROM n2k_analysis;
+            REVOKE ALL ON public.status FROM n2k_report;
+            DROP TABLE public.status;
+            DROP TABLE staging.status;

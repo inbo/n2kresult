@@ -70,3 +70,15 @@ databaseChangeLog:
             - column:
                 name: origin
                 type: varchar(255)
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.r_package TO n2k_analysis;
+                 GRANT SELECT, INSERT, TRUNCATE ON staging.r_package TO n2k_analysis;
+                 GRANT SELECT ON public.r_package TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.r_package FROM n2k_analysis;
+            REVOKE ALL ON staging.r_package FROM n2k_analysis;
+            REVOKE ALL ON public.r_package FROM n2k_report;
+            DROP TABLE public.r_package;
+            DROP TABLE staging.r_package;

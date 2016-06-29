@@ -56,3 +56,15 @@ databaseChangeLog:
             - column:
                 name: species
                 type: smallint
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.species_group_species TO n2k_analysis;
+                 GRANT SELECT, INSERT, TRUNCATE ON staging.species_group_species TO n2k_analysis;
+                 GRANT SELECT ON public.species_group_species TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.species_group_species FROM n2k_analysis;
+            REVOKE ALL ON staging.species_group_species FROM n2k_analysis;
+            REVOKE ALL ON public.species_group_species FROM n2k_report;
+            DROP TABLE public.species_group_species;
+            DROP TABLE staging.species_group_species;

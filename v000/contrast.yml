@@ -83,3 +83,15 @@ databaseChangeLog:
             - column:
                 name: ucl
                 type: float
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.contrast TO n2k_analysis;
+                 GRANT SELECT, INSERT, TRUNCATE ON staging.contrast TO n2k_analysis;
+                 GRANT SELECT ON public.contrast TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.contrast FROM n2k_analysis;
+            REVOKE ALL ON staging.contrast FROM n2k_analysis;
+            REVOKE ALL ON public.contrast FROM n2k_report;
+            DROP TABLE public.contrast;
+            DROP TABLE staging.contrast;

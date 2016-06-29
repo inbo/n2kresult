@@ -38,3 +38,15 @@ databaseChangeLog:
             - column:
                 name: obsolete
                 type: bit
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.analysis_version TO n2k_analysis;
+                 GRANT SELECT, INSERT, TRUNCATE ON staging.analysis_version TO n2k_analysis;
+                 GRANT SELECT ON public.analysis_version TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.analysis_version FROM n2k_analysis;
+            REVOKE ALL ON staging.analysis_version FROM n2k_analysis;
+            REVOKE ALL ON public.analysis_version FROM n2k_report;
+            DROP TABLE public.analysis_version;
+            DROP TABLE staging.analysis_version;

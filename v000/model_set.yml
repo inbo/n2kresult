@@ -81,3 +81,15 @@ databaseChangeLog:
             - column:
                 name: duration
                 type: smallint
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.model_set TO n2k_analysis;
+                 GRANT SELECT, INSERT, TRUNCATE ON staging.model_set TO n2k_analysis;
+                 GRANT SELECT ON public.model_set TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.model_set FROM n2k_analysis;
+            REVOKE ALL ON staging.model_set FROM n2k_analysis;
+            REVOKE ALL ON public.model_set FROM n2k_report;
+            DROP TABLE public.model_set;
+            DROP TABLE staging.model_set;

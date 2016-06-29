@@ -66,3 +66,15 @@ databaseChangeLog:
             - column:
                 name: dataset
                 type: varchar(40)
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.analysis_dataset TO n2k_analysis;
+                 GRANT SELECT, INSERT, TRUNCATE ON staging.analysis_dataset TO n2k_analysis;
+                 GRANT SELECT ON public.analysis_dataset TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.analysis_dataset FROM n2k_analysis;
+            REVOKE ALL ON staging.analysis_dataset FROM n2k_analysis;
+            REVOKE ALL ON public.analysis_dataset FROM n2k_report;
+            DROP TABLE public.analysis_dataset;
+            DROP TABLE staging.analysis_dataset;

@@ -62,3 +62,15 @@ databaseChangeLog:
             - column:
                 name: scheme
                 type: smallint
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.location_group TO n2k_analysis;
+                 GRANT SELECT, INSERT, TRUNCATE ON staging.location_group TO n2k_analysis;
+                 GRANT SELECT ON public.location_group TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.location_group FROM n2k_analysis;
+            REVOKE ALL ON staging.location_group FROM n2k_analysis;
+            REVOKE ALL ON public.location_group FROM n2k_report;
+            DROP TABLE public.location_group;
+            DROP TABLE staging.location_group;

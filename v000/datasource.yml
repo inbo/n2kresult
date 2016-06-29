@@ -104,3 +104,15 @@ databaseChangeLog:
             - column:
                 name: password
                 type: varchar(255)
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.datasource TO n2k_analysis;
+                 GRANT SELECT, INSERT, TRUNCATE ON staging.datasource TO n2k_analysis;
+                 GRANT SELECT (id, description, datasource_type) ON public.datasource TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.datasource FROM n2k_analysis;
+            REVOKE ALL ON staging.datasource FROM n2k_analysis;
+            REVOKE ALL ON public.datasource FROM n2k_report;
+            DROP TABLE public.datasource;
+            DROP TABLE staging.datasource;

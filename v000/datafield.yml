@@ -102,3 +102,15 @@ databaseChangeLog:
             - column:
                 name: datafield_type
                 type: varchar(40)
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.datafield TO n2k_analysis;
+                 GRANT SELECT, INSERT, TRUNCATE ON staging.datafield TO n2k_analysis;
+                 GRANT SELECT ON public.datafield TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.datafield FROM n2k_analysis;
+            REVOKE ALL ON staging.datafield FROM n2k_analysis;
+            REVOKE ALL ON public.datafield FROM n2k_report;
+            DROP TABLE public.datafield;
+            DROP TABLE staging.datafield;

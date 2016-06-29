@@ -97,3 +97,15 @@ databaseChangeLog:
             - column:
                 name: ucl
                 type: float
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.parameter_estimate TO n2k_analysis;
+                 GRANT SELECT, INSERT, TRUNCATE ON staging.parameter_estimate TO n2k_analysis;
+                 GRANT SELECT ON public.parameter_estimate TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.parameter_estimate FROM n2k_analysis;
+            REVOKE ALL ON staging.parameter_estimate FROM n2k_analysis;
+            REVOKE ALL ON public.parameter_estimate FROM n2k_report;
+            DROP TABLE public.parameter_estimate;
+            DROP TABLE staging.parameter_estimate;
