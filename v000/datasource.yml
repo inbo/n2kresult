@@ -76,6 +76,20 @@ databaseChangeLog:
             catalogName: cat
             columns:
             - column:
+                name: description
+                type: varchar(255)
+            - column:
+                name: datasource_type
+                type: smallint
+            unique: true
+            indexName: idx_datasource_description_datasource_type
+            schemaName: public
+            tableName: datasource
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
                 name: connect_method
                 type: smallint
             indexName: idx_datasource_connect_method
