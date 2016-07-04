@@ -1,0 +1,102 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_dataset
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "dataset"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: id
+                type: serial
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: filename
+                type: varchar(255)
+                constraints:
+                  nullable: false
+            - column:
+                name: path
+                type: varchar(255)
+                constraints:
+                  nullable: false
+            - column:
+                name: datasource
+                type: int
+                constraints:
+                  nullable: false
+            - column:
+                name: obsolete
+                type: bit
+            - column:
+                name: import_date
+                type: time with timezone
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_dataset_datasource
+          - baseColumnNames: datasource
+          - baseTableName: dataset
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: datasource
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: datasource
+                type: int
+            - column:
+                name: path
+                type: varchar(255)
+            - column:
+                name: filename
+                type: varchar(255)
+            unique: true
+            indexName: idx_dataset_datasource
+            schemaName: public
+            tableName: dataset
+
+        - createTable:
+          - tableName: "dataset"
+          - schemaName: "staging"
+          - columns:
+            - column:
+                name: id
+                type: int
+            - column:
+                name: fingerprint
+                type: varchar(40)
+            - column:
+                name: filename
+                type: varchar(255)
+            - column:
+                name: path
+                type: varchar(255)
+            - column:
+                name: datasource
+                type: varchar(40)
+            - column:
+                name: obsolete
+                type: bit
+            - column:
+                name: import_date
+                type: time with timezone
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.dataset TO n2k_analysis;
+                 GRANT SELECT, INSERT, TRUNCATE ON staging.dataset TO n2k_analysis;
+                 GRANT SELECT ON public.dataset TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.dataset FROM n2k_analysis;
+            REVOKE ALL ON staging.dataset FROM n2k_analysis;
+            REVOKE ALL ON public.dataset FROM n2k_report;
+            DROP TABLE public.dataset;
+            DROP TABLE staging.dataset;

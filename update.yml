@@ -1,0 +1,3 @@
+databaseChangeLog:
+  - include:
+      - file: v000/master.yml

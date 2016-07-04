@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_scheme
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "scheme"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: id
+                type: smallserial
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: description
+                type: varchar(255)
+                constraints:
+                  unique: true
+                  nullable: false
+
+        - createTable:
+          - tableName: "scheme"
+          - schemaName: "staging"
+          - columns:
+            - column:
+                name: description
+                type: varchar(255)
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.scheme TO n2k_analysis;
+                 GRANT SELECT, INSERT, TRUNCATE ON staging.scheme TO n2k_analysis;
+                 GRANT SELECT ON public.scheme TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.scheme FROM n2k_analysis;
+            REVOKE ALL ON staging.scheme FROM n2k_analysis;
+            REVOKE ALL ON public.scheme FROM n2k_report;
+            DROP TABLE public.scheme;
+            DROP TABLE staging.scheme;

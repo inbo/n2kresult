@@ -1,0 +1,84 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_r_package
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "r_package"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: id
+                type: serial
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: description
+                type: varchar(255)
+                constraints:
+                  nullable: false
+            - column:
+                name: version
+                type: varchar(255)
+            - column:
+                name: revision
+                type: varchar(255)
+            - column:
+                name: origin
+                type: varchar(255)
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: description
+                type: varchar(255)
+            - column:
+                name: version
+                type: varchar(255)
+            - column:
+                name: revision
+                type: varchar(255)
+            - column:
+                name: origin
+                type: varchar(255)
+            unique: true
+            indexName: idx_r_package_revision
+            schemaName: public
+            tableName: r_package
+
+        - createTable:
+          - tableName: "r_package"
+          - schemaName: "staging"
+          - columns:
+            - column:
+                name: id
+                type: int
+            - column:
+                name: fingerprint
+                type: varchar(40)
+            - column:
+                name: description
+                type: varchar(255)
+            - column:
+                name: version
+                type: varchar(255)
+            - column:
+                name: revision
+                type: varchar(255)
+            - column:
+                name: origin
+                type: varchar(255)
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.r_package TO n2k_analysis;
+                 GRANT SELECT, INSERT, TRUNCATE ON staging.r_package TO n2k_analysis;
+                 GRANT SELECT ON public.r_package TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.r_package FROM n2k_analysis;
+            REVOKE ALL ON staging.r_package FROM n2k_analysis;
+            REVOKE ALL ON public.r_package FROM n2k_report;
+            DROP TABLE public.r_package;
+            DROP TABLE staging.r_package;

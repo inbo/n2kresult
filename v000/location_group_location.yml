@@ -1,0 +1,70 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_location_group_location
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "location_group_location"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: location_group
+                type: smallint
+                constraints:
+                  nullable: false
+            - column:
+                name: location
+                type: int
+                constraints:
+                  nullable: false
+
+        - addPrimaryKey:
+            columnNames: location_group, location
+            constraintName: pk_location_group_location
+            schemaName: public
+            tableName: location_group_location
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_location_group_location_location_group
+          - baseColumnNames: location_group
+          - baseTableName: location_group_location
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: location_group
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_location_group_location_location
+          - baseColumnNames: location
+          - baseTableName: location_group_location
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: location
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - createTable:
+          - tableName: "location_group_location"
+          - schemaName: "staging"
+          - columns:
+            - column:
+                name: location_group
+                type: smallint
+            - column:
+                name: location
+                type: int
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.location_group_location TO n2k_analysis;
+                 GRANT SELECT, INSERT, TRUNCATE ON staging.location_group_location TO n2k_analysis;
+                 GRANT SELECT ON public.location_group_location TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.location_group_location FROM n2k_analysis;
+            REVOKE ALL ON staging.location_group_location FROM n2k_analysis;
+            REVOKE ALL ON public.location_group_location FROM n2k_report;
+            DROP TABLE public.location_group_location;
+            DROP TABLE staging.location_group_location;

@@ -1,0 +1,90 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_parameter
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "parameter"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: id
+                type: serial
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  unique: true
+                  nullable: false
+            - column:
+                name: parent_parameter
+                type: int
+            - column:
+                name: description
+                type: varchar(255)
+                constraints:
+                  nullable: false
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_parameter_parameter
+          - baseColumnNames: parent_parameter
+          - baseTableName: parameter
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: parameter
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: parent_parameter
+                type: int
+            indexName: idx_parameter_parent_parameter
+            schemaName: public
+            tableName: parameter
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: description
+                type: varchar(255)
+            - column:
+                name: parent_parameter
+                type: int
+            unique: true
+            indexName: idx_parameter_parent_description
+            schemaName: public
+            tableName: parameter
+
+        - createTable:
+          - tableName: "parameter"
+          - schemaName: "staging"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+            - column:
+                name: parent_parameter
+                type: varchar(40)
+            - column:
+                name: description
+                type: varchar(255)
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.parameter TO n2k_analysis;
+                 GRANT SELECT, INSERT, TRUNCATE ON staging.parameter TO n2k_analysis;
+                 GRANT SELECT ON public.parameter TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.parameter FROM n2k_analysis;
+            REVOKE ALL ON staging.parameter FROM n2k_analysis;
+            REVOKE ALL ON public.parameter FROM n2k_report;
+            DROP TABLE public.parameter;
+            DROP TABLE staging.parameter;

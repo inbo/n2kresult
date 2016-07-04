@@ -1,0 +1,70 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_analysis_version_r_package
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "analysis_version_r_package"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: analysis_version
+                type: int
+                constraints:
+                  nullable: false
+            - column:
+                name: r_package
+                type: int
+                constraints:
+                  nullable: false
+
+        - addPrimaryKey:
+            columnNames: analysis_version, r_package
+            constraintName: pk_analysis_version_r_package
+            schemaName: public
+            tableName: analysis_version_r_package
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_analysis_version_r_package_analysis_version
+          - baseColumnNames: analysis_version
+          - baseTableName: analysis_version_r_package
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: analysis_version
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_analysis_version_r_package_r_package
+          - baseColumnNames: r_package
+          - baseTableName: analysis_version_r_package
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: r_package
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - createTable:
+          - tableName: "analysis_version_r_package"
+          - schemaName: "staging"
+          - columns:
+            - column:
+                name: analysis_version
+                type: varchar(40)
+            - column:
+                name: r_package
+                type: varchar(40)
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.analysis_version_r_package TO n2k_analysis;
+                 GRANT SELECT, INSERT, TRUNCATE ON staging.analysis_version_r_package TO n2k_analysis;
+                 GRANT SELECT ON public.analysis_version_r_package TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.analysis_version_r_package FROM n2k_analysis;
+            REVOKE ALL ON staging.analysis_version_r_package FROM n2k_analysis;
+            REVOKE ALL ON public.analysis_version_r_package FROM n2k_report;
+            DROP TABLE public.analysis_version_r_package;
+            DROP TABLE staging.analysis_version_r_package;

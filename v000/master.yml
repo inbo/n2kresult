@@ -1,0 +1,90 @@
+databaseChangeLog:
+  - include:
+      file: "v000/model_type.yml"
+
+  - include:
+      file: "v000/model_set.yml"
+
+  - include:
+      file: "v000/scheme.yml"
+
+  - include:
+      file: "v000/location_group.yml"
+
+  - include:
+      file: "v000/species_group.yml"
+
+  - include:
+      file: "v000/analysis_version.yml"
+
+  - include:
+      file: "v000/status.yml"
+
+  - include:
+      file: "v000/analysis.yml"
+
+  - include:
+      file: "v000/datasource_type.yml"
+
+  - include:
+      file: "v000/connect_method.yml"
+
+  - include:
+      file: "v000/datasource.yml"
+
+  - include:
+      file: "v000/dataset.yml"
+
+  - include:
+      file: "v000/analysis_dataset.yml"
+
+  - include:
+      file: "v000/analysis_relation.yml"
+
+  - include:
+      file: "v000/r_package.yml"
+
+  - include:
+      file: "v000/analysis_version_r_package.yml"
+
+  - include:
+      file: "v000/datafield_type.yml"
+
+  - include:
+      file: "v000/datafield.yml"
+
+  - include:
+      file: "v000/parameter.yml"
+
+  - include:
+      file: "v000/parameter_estimate.yml"
+
+  - include:
+      file: "v000/anomaly_type.yml"
+
+  - include:
+      file: "v000/anomaly.yml"
+
+  - include:
+      file: "v000/contrast.yml"
+
+  - include:
+      file: "v000/contrast_coefficient.yml"
+
+  - include:
+      file: "v000/location.yml"
+
+  - include:
+      file: "v000/location_group_location.yml"
+
+  - include:
+      file: "v000/source_species.yml"
+
+  - include:
+      file: "v000/species.yml"
+
+  - include:
+      file: "v000/species_group_species.yml"
+
+  - include:
+      file: "v000/source_species_species.yml"

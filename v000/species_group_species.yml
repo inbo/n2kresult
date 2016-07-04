@@ -1,0 +1,70 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_species_group_species
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "species_group_species"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: species_group
+                type: smallint
+                constraints:
+                  nullable: false
+            - column:
+                name: species
+                type: smallint
+                constraints:
+                  nullable: false
+
+        - addPrimaryKey:
+            columnNames: species_group, species
+            constraintName: pk_species_group_species
+            schemaName: public
+            tableName: species_group_species
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_species_group_species_species_group
+          - baseColumnNames: species_group
+          - baseTableName: species_group_species
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: species_group
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_species_group_species_species
+          - baseColumnNames: species
+          - baseTableName: species_group_species
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: species
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - createTable:
+          - tableName: "species_group_species"
+          - schemaName: "staging"
+          - columns:
+            - column:
+                name: species_group
+                type: smallint
+            - column:
+                name: species
+                type: smallint
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.species_group_species TO n2k_analysis;
+                 GRANT SELECT, INSERT, TRUNCATE ON staging.species_group_species TO n2k_analysis;
+                 GRANT SELECT ON public.species_group_species TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.species_group_species FROM n2k_analysis;
+            REVOKE ALL ON staging.species_group_species FROM n2k_analysis;
+            REVOKE ALL ON public.species_group_species FROM n2k_report;
+            DROP TABLE public.species_group_species;
+            DROP TABLE staging.species_group_species;

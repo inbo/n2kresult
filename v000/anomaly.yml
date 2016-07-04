@@ -1,0 +1,151 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_anomaly
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "anomaly"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: anomaly_type
+                type: smallint
+                constraints:
+                  nullable: false
+            - column:
+                name: datafield
+                type: int
+                constraints:
+                  nullable: false
+            - column:
+                name: analysis
+                type: integer
+                constraints:
+                  nullable: false
+            - column:
+                name: parameter
+                type: int
+                constraints:
+                  nullable: false
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: anomaly_type
+                type: smallint
+            indexName: idx_anomaly_anomaly_type
+            schemaName: public
+            tableName: anomaly
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: datafield
+                type: int
+            indexName: idx_anomaly_datafield
+            schemaName: public
+            tableName: anomaly
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: analysis
+                type: int
+            indexName: idx_anomaly_analysis
+            schemaName: public
+            tableName: anomaly
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: parameter
+                type: int
+            indexName: idx_anomaly_parameter
+            schemaName: public
+            tableName: anomaly
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_anomaly_anomaly_type
+          - baseColumnNames: anomaly_type
+          - baseTableName: anomaly
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: anomaly_type
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_anomaly_datafield
+          - baseColumnNames: datafield
+          - baseTableName: anomaly
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: datafield
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_anomaly_analysis
+          - baseColumnNames: analysis
+          - baseTableName: anomaly
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: analysis
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_anomaly_parameter
+          - baseColumnNames: parameter
+          - baseTableName: anomaly
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: parameter
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - createTable:
+          - tableName: "anomaly"
+          - schemaName: "staging"
+          - columns:
+            - column:
+                name: fingerprint
+                type: varchar(40)
+            - column:
+                name: anomaly_type
+                type: varchar(40)
+            - column:
+                name: datafield
+                type: varchar(40)
+            - column:
+                name: analysis
+                type: varchar(40)
+            - column:
+                name: parameter
+                type: varchar(40)
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.anomaly TO n2k_analysis;
+                 GRANT SELECT, INSERT, TRUNCATE ON staging.anomaly TO n2k_analysis;
+                 GRANT SELECT ON public.anomaly TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.anomaly FROM n2k_analysis;
+            REVOKE ALL ON staging.anomaly FROM n2k_analysis;
+            REVOKE ALL ON public.anomaly FROM n2k_report;
+            DROP TABLE public.anomaly;
+            DROP TABLE staging.anomaly;
