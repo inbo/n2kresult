@@ -88,3 +88,9 @@ databaseChangeLog:
 
   - include:
       file: "v000/source_species_species.yml"
+
+  - include:
+      file: "v000/datasource_parameter.yml"
+
+  - include:
+      file: "v000/datasource_value.yml"

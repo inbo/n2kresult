@@ -28,17 +28,6 @@ databaseChangeLog:
                 type: smallint
                 constraints:
                   nullable: false
-            - column:
-                name: connection_string
-                type: varchar(255)
-                constraints:
-                  nullable: false
-            - column:
-                name: username
-                type: varchar(255)
-            - column:
-                name: password
-                type: varchar(255)
 
         - addForeignKeyConstraint:
           - constraintName: fk_datasource_datasource_type
@@ -108,15 +97,6 @@ databaseChangeLog:
                 type: varchar(255)
             - column:
                 name: connect_method
-                type: varchar(255)
-            - column:
-                name: connection_string
-                type: varchar(255)
-            - column:
-                name: username
-                type: varchar(255)
-            - column:
-                name: password
                 type: varchar(255)
 
         - sql:

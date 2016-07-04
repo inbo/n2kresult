@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_datasource_parameter
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "datasource_parameter"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: id
+                type: serial
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: description
+                type: varchar(255)
+                constraints:
+                  nullable: false
+
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: description
+                type: varchar(255)
+            unique: true
+            indexName: idx_datasource_parameter_description
+            schemaName: public
+            tableName: datasource
+
+        - createTable:
+          - tableName: "datasource_parameter"
+          - schemaName: "staging"
+          - columns:
+            - column:
+                name: description
+                type: varchar(255)
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.datasource_parameter TO n2k_analysis;
+                 GRANT SELECT, INSERT, TRUNCATE ON staging.datasource_parameter TO n2k_analysis;
+
+        - rollback:
+            REVOKE ALL ON public.datasource_parameter FROM n2k_analysis;
+            REVOKE ALL ON staging.datasource_parameter FROM n2k_analysis;
+            DROP TABLE public.datasource_parameter;
+            DROP TABLE staging.datasource_parameter;
