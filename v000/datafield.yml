@@ -85,14 +85,8 @@ databaseChangeLog:
           - schemaName: "staging"
           - columns:
             - column:
-                name: id
-                type: int
-            - column:
-                name: fingerprint
-                type: varchar(40)
-            - column:
                 name: datasource
-                type: varchar(40)
+                type: smallint
             - column:
                 name: table_name
                 type: varchar(255)
@@ -101,7 +95,7 @@ databaseChangeLog:
                 type: varchar(255)
             - column:
                 name: datafield_type
-                type: varchar(40)
+                type: varchar(255)
 
         - sql:
             sql: GRANT SELECT, INSERT ON public.datafield TO n2k_analysis;

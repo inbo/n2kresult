@@ -52,10 +52,10 @@ databaseChangeLog:
           - columns:
             - column:
                 name: location_group
-                type: smallint
+                type: varchar(40)
             - column:
                 name: location
-                type: int
+                type: varchar(40)
 
         - sql:
             sql: GRANT SELECT, INSERT ON public.location_group_location TO n2k_analysis;

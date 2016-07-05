@@ -54,8 +54,8 @@ databaseChangeLog:
           - schemaName: "staging"
           - columns:
             - column:
-                name: id
-                type: smallint
+                name: fingerprint
+                type: varchar(40)
             - column:
                 name: description
                 type: varchar(255)

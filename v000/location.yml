@@ -85,9 +85,6 @@ databaseChangeLog:
           - schemaName: "staging"
           - columns:
             - column:
-                name: id
-                type: int
-            - column:
                 name: fingerprint
                 type: varchar(40)
             - column:
@@ -97,8 +94,8 @@ databaseChangeLog:
                 name: parent_location
                 type: varchar(40)
             - column:
-                name: datafield
-                type: varchar(40)
+                name: datasource
+                type: smallint
             - column:
                 name: external_code
                 type: varchar(255)
