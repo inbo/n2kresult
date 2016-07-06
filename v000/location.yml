@@ -96,7 +96,8 @@ databaseChangeLog:
         - sql:
             sql: GRANT SELECT, INSERT ON public.location TO n2k_analysis;
                  GRANT SELECT, INSERT, DELETE ON staging.location TO n2k_analysis;
-                 GRANT UPDATE (id) ON staging.location_group TO n2k_analysis;
+                 GRANT UPDATE (description) ON public.location TO n2k_analysis;
+                 GRANT UPDATE (id) ON staging.location TO n2k_analysis;
                  GRANT SELECT ON public.location TO n2k_report;
 
         - rollback:
