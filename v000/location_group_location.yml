@@ -56,10 +56,13 @@ databaseChangeLog:
             - column:
                 name: location
                 type: varchar(40)
+            - column:
+                name: hash
+                type: varchar(40)
 
         - sql:
             sql: GRANT SELECT, INSERT ON public.location_group_location TO n2k_analysis;
-                 GRANT SELECT, INSERT, TRUNCATE ON staging.location_group_location TO n2k_analysis;
+                 GRANT SELECT, INSERT, DELETE ON staging.location_group_location TO n2k_analysis;
                  GRANT SELECT ON public.location_group_location TO n2k_report;
 
         - rollback:

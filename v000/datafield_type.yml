@@ -27,10 +27,13 @@ databaseChangeLog:
             - column:
                 name: description
                 type: varchar(255)
+            - column:
+                name: hash
+                type: varchar(40)
 
         - sql:
             sql: GRANT SELECT, INSERT ON public.datafield_type TO n2k_analysis;
-                 GRANT SELECT, INSERT, TRUNCATE ON staging.datafield_type TO n2k_analysis;
+                 GRANT SELECT, INSERT, DELETE ON staging.datafield_type TO n2k_analysis;
                  GRANT SELECT ON public.datafield_type TO n2k_report;
 
         - rollback:
