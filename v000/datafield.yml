@@ -85,6 +85,9 @@ databaseChangeLog:
           - schemaName: "staging"
           - columns:
             - column:
+                name: fingerprint
+                type: varchar(40)
+            - column:
                 name: datasource
                 type: smallint
             - column:

@@ -92,8 +92,8 @@ databaseChangeLog:
                 name: parent_location
                 type: varchar(40)
             - column:
-                name: datasource
-                type: smallint
+                name: datafield
+                type: varchar(40)
             - column:
                 name: external_code
                 type: varchar(255)
