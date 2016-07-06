@@ -85,6 +85,9 @@ databaseChangeLog:
           - schemaName: "staging"
           - columns:
             - column:
+                name: id
+                type: int
+            - column:
                 name: fingerprint
                 type: varchar(40)
             - column:
@@ -106,6 +109,7 @@ databaseChangeLog:
         - sql:
             sql: GRANT SELECT, INSERT ON public.datafield TO n2k_analysis;
                  GRANT SELECT, INSERT, DELETE ON staging.datafield TO n2k_analysis;
+                 GRANT UPDATE (id) ON staging.datafield TO n2k_analysis;
                  GRANT SELECT ON public.datafield TO n2k_report;
 
         - rollback:
