@@ -98,6 +98,9 @@ databaseChangeLog:
             - column:
                 name: connect_method
                 type: varchar(255)
+            - column:
+                name: hash
+                type: varchar(40)
 
         - sql:
             sql: GRANT SELECT, INSERT ON public.datasource TO n2k_analysis;
