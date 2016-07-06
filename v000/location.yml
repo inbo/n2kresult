@@ -21,8 +21,6 @@ databaseChangeLog:
             - column:
                 name: parent_location
                 type: int
-                constraints:
-                  nullable: false
             - column:
                 name: datafield
                 type: int
