@@ -29,7 +29,7 @@ databaseChangeLog:
             unique: true
             indexName: idx_datasource_parameter_description
             schemaName: public
-            tableName: datasource
+            tableName: datasource_parameter
 
         - createTable:
           - tableName: "datasource_parameter"
