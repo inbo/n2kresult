@@ -23,11 +23,6 @@ databaseChangeLog:
                 type: smallint
                 constraints:
                   nullable: false
-            - column:
-                name: connect_method
-                type: smallint
-                constraints:
-                  nullable: false
 
         - addForeignKeyConstraint:
           - constraintName: fk_datasource_datasource_type
@@ -36,17 +31,6 @@ databaseChangeLog:
           - baseTableSchemaName: public
           - referencedColumnNames: id
           - referencedTableName: datasource_type
-          - referencedTableSchemaName: public
-          - onDelete: 'RESTRICT'
-          - onUpdate: 'RESTRICT'
-
-        - addForeignKeyConstraint:
-          - constraintName: fk_datasource_connect_method
-          - baseColumnNames: connect_method
-          - baseTableName: datasource
-          - baseTableSchemaName: public
-          - referencedColumnNames: id
-          - referencedTableName: connect_method
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
           - onUpdate: 'RESTRICT'
@@ -75,16 +59,6 @@ databaseChangeLog:
             schemaName: public
             tableName: datasource
 
-        - createIndex:
-            catalogName: cat
-            columns:
-            - column:
-                name: connect_method
-                type: smallint
-            indexName: idx_datasource_connect_method
-            schemaName: public
-            tableName: datasource
-
         - createTable:
           - tableName: "datasource"
           - schemaName: "staging"
@@ -96,16 +70,13 @@ databaseChangeLog:
                 name: datasource_type
                 type: varchar(255)
             - column:
-                name: connect_method
-                type: varchar(255)
-            - column:
                 name: hash
                 type: varchar(40)
 
         - sql:
             sql: GRANT SELECT, INSERT ON public.datasource TO n2k_analysis;
                  GRANT SELECT, INSERT, TRUNCATE ON staging.datasource TO n2k_analysis;
-                 GRANT SELECT (id, description, datasource_type) ON public.datasource TO n2k_report;
+                 GRANT SELECT ON public.datasource TO n2k_report;
 
         - rollback:
             REVOKE ALL ON public.datasource FROM n2k_analysis;

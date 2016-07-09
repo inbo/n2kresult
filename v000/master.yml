@@ -27,9 +27,6 @@ databaseChangeLog:
       file: "v000/datasource_type.yml"
 
   - include:
-      file: "v000/connect_method.yml"
-
-  - include:
       file: "v000/datasource.yml"
 
   - include:
