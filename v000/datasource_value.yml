@@ -60,35 +60,12 @@ databaseChangeLog:
           - onDelete: 'RESTRICT'
           - onUpdate: 'RESTRICT'
 
-        - createTable:
-          - tableName: "datasource_value"
-          - schemaName: "staging"
-          - columns:
-            - column:
-                name: datasource
-                type: varchar(255)
-            - column:
-                name: datasource_type
-                type: varchar(255)
-            - column:
-                name: parameter
-                type: varchar(255)
-            - column:
-                name: value
-                type: varchar(255)
-            - column:
-                name: hash
-                type: varchar(40)
-
         - sql:
             sql: GRANT SELECT, INSERT ON public.datasource_value TO n2k_analysis;
                  GRANT UPDATE (destroy) ON public.datasource_value TO n2k_analysis;
-                 GRANT SELECT, INSERT, TRUNCATE ON staging.datasource_value TO n2k_analysis;
                  CREATE TRIGGER destroy_datasource_value BEFORE UPDATE ON public.datasource_value FOR EACH ROW EXECUTE PROCEDURE set_destroy_time();
 
         - rollback:
             DROP TRIGGER destroy_datasource_value ON public.datasource_value;
             REVOKE ALL ON public.datasource_value FROM n2k_analysis;
-            REVOKE ALL ON staging.datasource_value FROM n2k_analysis;
             DROP TABLE public.datasource_value;
-            DROP TABLE staging.datasource_value;

@@ -59,28 +59,11 @@ databaseChangeLog:
             schemaName: public
             tableName: datasource
 
-        - createTable:
-          - tableName: "datasource"
-          - schemaName: "staging"
-          - columns:
-            - column:
-                name: description
-                type: varchar(255)
-            - column:
-                name: datasource_type
-                type: varchar(255)
-            - column:
-                name: hash
-                type: varchar(40)
-
         - sql:
             sql: GRANT SELECT, INSERT ON public.datasource TO n2k_analysis;
-                 GRANT SELECT, INSERT, TRUNCATE ON staging.datasource TO n2k_analysis;
                  GRANT SELECT ON public.datasource TO n2k_report;
 
         - rollback:
             REVOKE ALL ON public.datasource FROM n2k_analysis;
-            REVOKE ALL ON staging.datasource FROM n2k_analysis;
             REVOKE ALL ON public.datasource FROM n2k_report;
             DROP TABLE public.datasource;
-            DROP TABLE staging.datasource;
