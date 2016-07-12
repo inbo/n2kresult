@@ -33,7 +33,7 @@ databaseChangeLog:
                 type: TIMESTAMP WITH TIME ZONE
 
         - addPrimaryKey:
-            columnNames: datasource, parameter
+            columnNames: datasource, parameter, spawn
             constraintName: pk_datasource_value
             schemaName: public
             tableName: datasource_value
