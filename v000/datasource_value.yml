@@ -82,6 +82,7 @@ databaseChangeLog:
 
         - sql:
             sql: GRANT SELECT, INSERT ON public.datasource_value TO n2k_analysis;
+                 GRANT UPDATE (destroy) ON public.datasource_value TO n2k_analysis;
                  GRANT SELECT, INSERT, TRUNCATE ON staging.datasource_value TO n2k_analysis;
 
         - rollback:
