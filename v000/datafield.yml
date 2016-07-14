@@ -65,6 +65,12 @@ databaseChangeLog:
             - column:
                 name: table_name
                 type: varchar(255)
+            - column:
+                name: primary_key
+                type: varchar(255)
+            - column:
+                name: datafield_type
+                type: smallint
             unique: true
             indexName: idx_datafield_datasource_table
             schemaName: public
