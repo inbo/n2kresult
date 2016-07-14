@@ -20,25 +20,11 @@ databaseChangeLog:
                   unique: true
                   nullable: false
 
-        - createTable:
-          - tableName: "datafield_type"
-          - schemaName: "staging"
-          - columns:
-            - column:
-                name: description
-                type: varchar(255)
-            - column:
-                name: hash
-                type: varchar(40)
-
         - sql:
             sql: GRANT SELECT, INSERT ON public.datafield_type TO n2k_analysis;
-                 GRANT SELECT, INSERT, DELETE ON staging.datafield_type TO n2k_analysis;
                  GRANT SELECT ON public.datafield_type TO n2k_report;
 
         - rollback:
             REVOKE ALL ON public.datafield_type FROM n2k_analysis;
-            REVOKE ALL ON staging.datafield_type FROM n2k_analysis;
             REVOKE ALL ON public.datafield_type FROM n2k_report;
             DROP TABLE public.datafield_type;
-            DROP TABLE staging.datafield_type;

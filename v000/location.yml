@@ -73,42 +73,12 @@ databaseChangeLog:
             schemaName: public
             tableName: location
 
-        - createTable:
-          - tableName: "location"
-          - schemaName: "staging"
-          - columns:
-            - column:
-                name: id
-                type: int
-            - column:
-                name: fingerprint
-                type: varchar(40)
-            - column:
-                name: description
-                type: varchar(255)
-            - column:
-                name: parent_location
-                type: varchar(40)
-            - column:
-                name: datafield
-                type: varchar(40)
-            - column:
-                name: external_code
-                type: varchar(255)
-            - column:
-                name: hash
-                type: varchar(40)
-
         - sql:
             sql: GRANT SELECT, INSERT ON public.location TO n2k_analysis;
-                 GRANT SELECT, INSERT, DELETE ON staging.location TO n2k_analysis;
                  GRANT UPDATE (description) ON public.location TO n2k_analysis;
-                 GRANT UPDATE (id) ON staging.location TO n2k_analysis;
                  GRANT SELECT ON public.location TO n2k_report;
 
         - rollback:
             REVOKE ALL ON public.location FROM n2k_analysis;
-            REVOKE ALL ON staging.location FROM n2k_analysis;
             REVOKE ALL ON public.location FROM n2k_report;
             DROP TABLE public.location;
-            DROP TABLE staging.location;
