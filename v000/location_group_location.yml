@@ -59,8 +59,10 @@ databaseChangeLog:
             sql: GRANT SELECT, INSERT ON public.location_group_location TO n2k_analysis;
                  GRANT UPDATE (destroy) ON public.location_group_location TO n2k_analysis;
                  GRANT SELECT ON public.location_group_location TO n2k_report;
+                 CREATE TRIGGER destroy_location_group_location BEFORE UPDATE ON public.location_group_location FOR EACH ROW EXECUTE PROCEDURE set_destroy_time();
 
         - rollback:
+            DROP TRIGGER destroy_location_group_location ON public.location_group_location;
             REVOKE ALL ON public.location_group_location FROM n2k_analysis;
             REVOKE ALL ON public.location_group_location FROM n2k_report;
             DROP TABLE public.location_group_location;
