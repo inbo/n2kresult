@@ -49,35 +49,11 @@ databaseChangeLog:
             schemaName: public
             tableName: location_group
 
-        - createTable:
-          - tableName: "location_group"
-          - schemaName: "staging"
-          - columns:
-            - column:
-                name: id
-                type: smallint
-            - column:
-                name: fingerprint
-                type: varchar(40)
-            - column:
-                name: description
-                type: varchar(255)
-            - column:
-                name: scheme
-                type: smallint
-            - column:
-                name: hash
-                type: varchar(40)
-
         - sql:
             sql: GRANT SELECT, INSERT ON public.location_group TO n2k_analysis;
-                 GRANT SELECT, INSERT, DELETE ON staging.location_group TO n2k_analysis;
-                 GRANT UPDATE (id) ON staging.location_group TO n2k_analysis;
                  GRANT SELECT ON public.location_group TO n2k_report;
 
         - rollback:
             REVOKE ALL ON public.location_group FROM n2k_analysis;
-            REVOKE ALL ON staging.location_group FROM n2k_analysis;
             REVOKE ALL ON public.location_group FROM n2k_report;
             DROP TABLE public.location_group;
-            DROP TABLE staging.location_group;

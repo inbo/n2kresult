@@ -55,29 +55,12 @@ databaseChangeLog:
           - onDelete: 'RESTRICT'
           - onUpdate: 'RESTRICT'
 
-        - createTable:
-          - tableName: "location_group_location"
-          - schemaName: "staging"
-          - columns:
-            - column:
-                name: location_group
-                type: varchar(40)
-            - column:
-                name: location
-                type: varchar(40)
-            - column:
-                name: hash
-                type: varchar(40)
-
         - sql:
             sql: GRANT SELECT, INSERT ON public.location_group_location TO n2k_analysis;
-                 GRANT SELECT, INSERT, DELETE ON staging.location_group_location TO n2k_analysis;
                  GRANT UPDATE (destroy) ON public.location_group_location TO n2k_analysis;
                  GRANT SELECT ON public.location_group_location TO n2k_report;
 
         - rollback:
             REVOKE ALL ON public.location_group_location FROM n2k_analysis;
-            REVOKE ALL ON staging.location_group_location FROM n2k_analysis;
             REVOKE ALL ON public.location_group_location FROM n2k_report;
             DROP TABLE public.location_group_location;
-            DROP TABLE staging.location_group_location;
