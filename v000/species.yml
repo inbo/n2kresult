@@ -40,25 +40,11 @@ databaseChangeLog:
             schemaName: public
             tableName: species
 
-        - createTable:
-          - tableName: "species"
-          - schemaName: "staging"
-          - columns:
-            - column:
-                name: fingerprint
-                type: varchar(40)
-            - column:
-                name: dutch_name
-                type: varchar(255)
-            - column:
-                name: scientific_name
-                type: varchar(255)
-            - column:
-                name: english_name
-                type: varchar(255)
-            - column:
-                name: french_name
-                type: varchar(255)
-            - column:
-                name: nbn_key
-                type: varchar(255)
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.species TO n2k_analysis;
+                 GRANT SELECT ON public.species TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.species FROM n2k_analysis;
+            REVOKE ALL ON public.species FROM n2k_report;
+            DROP TABLE public.species;

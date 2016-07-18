@@ -28,7 +28,7 @@ databaseChangeLog:
                 type: TIMESTAMP WITH TIME ZONE
 
         - addPrimaryKey:
-            columnNames: location_group, location
+            columnNames: location_group, location, spawn
             constraintName: pk_location_group_location
             schemaName: public
             tableName: location_group_location

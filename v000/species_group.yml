@@ -49,28 +49,11 @@ databaseChangeLog:
             schemaName: public
             tableName: species_group
 
-        - createTable:
-          - tableName: "species_group"
-          - schemaName: "staging"
-          - columns:
-            - column:
-                name: id
-                type: smallint
-            - column:
-                name: description
-                type: varchar(255)
-            - column:
-                name: scheme
-                type: smallint
-
         - sql:
             sql: GRANT SELECT, INSERT ON public.species_group TO n2k_analysis;
-                 GRANT SELECT, INSERT, TRUNCATE ON staging.species_group TO n2k_analysis;
                  GRANT SELECT ON public.species_group TO n2k_report;
 
         - rollback:
             REVOKE ALL ON public.species_group FROM n2k_analysis;
-            REVOKE ALL ON staging.species_group FROM n2k_analysis;
             REVOKE ALL ON public.species_group FROM n2k_report;
             DROP TABLE public.species_group;
-            DROP TABLE staging.species_group;
