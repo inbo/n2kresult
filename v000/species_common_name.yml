@@ -1,0 +1,71 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_species_common_name
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "species_common_name"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: language
+                type: smallint
+                constraints:
+                  nullable: false
+            - column:
+                name: species
+                type: int
+                constraints:
+                  nullable: false
+            - column:
+                name: description
+                type: varchar(255)
+            - column:
+                name: spawn
+                type: TIMESTAMP WITH TIME ZONE
+                defaultValueDate: CURRENT_TIMESTAMP
+                constraints:
+                  nullable: false
+            - column:
+                name: destroy
+                type: TIMESTAMP WITH TIME ZONE
+
+        - addPrimaryKey:
+            columnNames: language, species, spawn
+            constraintName: pk_species_common_name
+            schemaName: public
+            tableName: species_common_name
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_species_common_name_language
+          - baseColumnNames: language
+          - baseTableName: species_common_name
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: language
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_species_common_name_species
+          - baseColumnNames: species
+          - baseTableName: species_common_name
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: species
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.species_common_name TO n2k_analysis;
+                 GRANT UPDATE (destroy) ON public.species_common_name TO n2k_analysis;
+                 GRANT SELECT ON public.species_common_name TO n2k_report;
+                 CREATE TRIGGER destroy_species_common_name BEFORE UPDATE ON public.species_common_name FOR EACH ROW EXECUTE PROCEDURE set_destroy_time();
+
+        - rollback:
+            DROP TRIGGER destroy_species_common_name ON public.species_common_name;
+            REVOKE ALL ON public.species_common_name FROM n2k_analysis;
+            REVOKE ALL ON public.species_common_name FROM n2k_report;
+            DROP TABLE public.species_common_name;

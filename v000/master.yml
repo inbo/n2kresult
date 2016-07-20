@@ -96,4 +96,10 @@ databaseChangeLog:
       file: "v000/datasource_value.yml"
 
   - include:
+      file: "v000/language.yml"
+
+  - include:
+      file: "v000/species_common_name.yml"
+
+  - include:
       file: "v000/sequence.yml"
