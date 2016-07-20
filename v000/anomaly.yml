@@ -8,10 +8,16 @@ databaseChangeLog:
           - schemaName: "public"
           - columns:
             - column:
+                name: id
+                type: serial
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
                 name: fingerprint
                 type: varchar(40)
                 constraints:
-                  primaryKey: true
+                  unique: true
                   nullable: false
             - column:
                 name: anomaly_type

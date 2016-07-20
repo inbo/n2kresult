@@ -14,11 +14,20 @@ databaseChangeLog:
                   primaryKey: true
                   nullable: false
             - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  unique: true
+                  nullable: false
+            - column:
                 name: description
                 type: varchar(255)
                 constraints:
                   unique: true
                   nullable: false
+            - column:
+                name: long_description
+                type: text
 
         - sql:
             sql: GRANT SELECT, INSERT ON public.model_type TO n2k_analysis;
