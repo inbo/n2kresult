@@ -62,6 +62,7 @@ databaseChangeLog:
 
         - sql:
             sql: GRANT SELECT, INSERT ON public.source_species TO n2k_analysis;
+                 GRANT UPDATE (description) ON public.source_species TO n2k_analysis;
                  GRANT SELECT ON public.source_species TO n2k_report;
 
         - rollback:
