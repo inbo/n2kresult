@@ -60,8 +60,8 @@ databaseChangeLog:
 
         - sql:
             sql: GRANT SELECT, INSERT ON public.species_common_name TO n2k_analysis;
-                 GRANT UPDATE (destroy) ON public.species_common_name TO n2k_analysis;
                  GRANT SELECT ON public.species_common_name TO n2k_report;
+                 GRANT UPDATE (destroy) ON public.species_common_name TO n2k_analysis;
                  CREATE TRIGGER destroy_species_common_name BEFORE UPDATE ON public.species_common_name FOR EACH ROW EXECUTE PROCEDURE set_destroy_time();
 
         - rollback:

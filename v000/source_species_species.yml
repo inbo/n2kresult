@@ -17,6 +17,15 @@ databaseChangeLog:
                 type: smallint
                 constraints:
                   nullable: false
+            - column:
+                name: spawn
+                type: TIMESTAMP WITH TIME ZONE
+                defaultValueDate: CURRENT_TIMESTAMP
+                constraints:
+                  nullable: false
+            - column:
+                name: destroy
+                type: TIMESTAMP WITH TIME ZONE
 
         - addPrimaryKey:
             columnNames: source_species, species
@@ -49,8 +58,11 @@ databaseChangeLog:
         - sql:
             sql: GRANT SELECT, INSERT ON public.source_species_species TO n2k_analysis;
                  GRANT SELECT ON public.source_species_species TO n2k_report;
+                 GRANT UPDATE (destroy) ON public.source_species_species TO n2k_analysis;
+                 CREATE TRIGGER destroy_source_species_species BEFORE UPDATE ON public.source_species_species FOR EACH ROW EXECUTE PROCEDURE set_destroy_time();
 
         - rollback:
+            DROP TRIGGER destroy_source_species_species ON public.source_species_species;
             REVOKE ALL ON public.source_species_species FROM n2k_analysis;
             REVOKE ALL ON public.source_species_species FROM n2k_report;
             DROP TABLE public.source_species_species;
