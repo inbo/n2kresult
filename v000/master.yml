@@ -1,5 +1,8 @@
 databaseChangeLog:
   - include:
+      file: "v000/set_spawn_time.yml"
+
+  - include:
       file: "v000/set_destroy_time.yml"
 
   - include:

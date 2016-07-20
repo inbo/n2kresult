@@ -64,8 +64,10 @@ databaseChangeLog:
             sql: GRANT SELECT, INSERT ON public.datasource_value TO n2k_analysis;
                  GRANT UPDATE (destroy) ON public.datasource_value TO n2k_analysis;
                  CREATE TRIGGER destroy_datasource_value BEFORE UPDATE ON public.datasource_value FOR EACH ROW EXECUTE PROCEDURE set_destroy_time();
+                 CREATE TRIGGER spawn_datasource_value BEFORE INSERT ON public.datasource_value FOR EACH ROW EXECUTE PROCEDURE set_spawn_time();
 
         - rollback:
             DROP TRIGGER destroy_datasource_value ON public.datasource_value;
+            DROP TRIGGER spawn_datasource_value ON public.datasource_value;
             REVOKE ALL ON public.datasource_value FROM n2k_analysis;
             DROP TABLE public.datasource_value;

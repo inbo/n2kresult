@@ -60,9 +60,11 @@ databaseChangeLog:
                  GRANT SELECT ON public.species_group_species TO n2k_report;
                  GRANT UPDATE (destroy) ON public.species_group_species TO n2k_analysis;
                  CREATE TRIGGER destroy_species_group_species BEFORE UPDATE ON public.species_group_species FOR EACH ROW EXECUTE PROCEDURE set_destroy_time();
+                 CREATE TRIGGER spawn_species_group_species BEFORE INSERT ON public.species_group_species FOR EACH ROW EXECUTE PROCEDURE set_spawn_time();
 
         - rollback:
             DROP TRIGGER destroy_species_group_species ON public.species_group_species;
+            DROP TRIGGER spawn_species_group_species ON public.species_group_species;
             REVOKE ALL ON public.species_group_species FROM n2k_analysis;
             REVOKE ALL ON public.species_group_species FROM n2k_report;
             DROP TABLE public.species_group_species;

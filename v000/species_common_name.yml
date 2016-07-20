@@ -63,9 +63,11 @@ databaseChangeLog:
                  GRANT SELECT ON public.species_common_name TO n2k_report;
                  GRANT UPDATE (destroy) ON public.species_common_name TO n2k_analysis;
                  CREATE TRIGGER destroy_species_common_name BEFORE UPDATE ON public.species_common_name FOR EACH ROW EXECUTE PROCEDURE set_destroy_time();
+                 CREATE TRIGGER spawn_species_common_name BEFORE INSERT ON public.species_common_name FOR EACH ROW EXECUTE PROCEDURE set_spawn_time();
 
         - rollback:
             DROP TRIGGER destroy_species_common_name ON public.species_common_name;
+            DROP TRIGGER spawn_species_common_name ON public.species_common_name;
             REVOKE ALL ON public.species_common_name FROM n2k_analysis;
             REVOKE ALL ON public.species_common_name FROM n2k_report;
             DROP TABLE public.species_common_name;
