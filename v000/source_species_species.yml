@@ -28,7 +28,7 @@ databaseChangeLog:
                 type: TIMESTAMP WITH TIME ZONE
 
         - addPrimaryKey:
-            columnNames: source_species, species
+            columnNames: source_species, species, spawn
             constraintName: pk_source_species_species
             schemaName: public
             tableName: source_species_species
