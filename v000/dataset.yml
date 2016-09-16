@@ -25,21 +25,13 @@ databaseChangeLog:
                 constraints:
                   nullable: false
             - column:
-                name: path
-                type: varchar(255)
-                constraints:
-                  nullable: false
-            - column:
                 name: datasource
                 type: int
                 constraints:
                   nullable: false
             - column:
-                name: obsolete
-                type: bit
-            - column:
                 name: import_date
-                type: time with timezone
+                type: timestamp with time zone
 
         - addForeignKeyConstraint:
           - constraintName: fk_dataset_datasource
@@ -58,9 +50,6 @@ databaseChangeLog:
             - column:
                 name: datasource
                 type: int
-            - column:
-                name: path
-                type: varchar(255)
             - column:
                 name: filename
                 type: varchar(255)
