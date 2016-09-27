@@ -19,14 +19,6 @@ databaseChangeLog:
                 constraints:
                   unique: true
                   nullable: false
-            - column:
-                name: description
-                type: varchar(255)
-                constraints:
-                  nullable: false
-            - column:
-                name: obsolete
-                type: bit
 
         - sql:
             sql: GRANT SELECT, INSERT ON public.analysis_version TO n2k_analysis;
