@@ -31,6 +31,7 @@ databaseChangeLog:
 
         - sql:
             sql: GRANT SELECT, INSERT ON public.anomaly_type TO n2k_analysis;
+                 GRANT UPDATE (long_description) ON public.anomaly_type TO n2k_analysis;
                  GRANT SELECT ON public.anomaly_type TO n2k_report;
 
         - rollback:
