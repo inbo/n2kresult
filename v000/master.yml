@@ -105,4 +105,7 @@ databaseChangeLog:
       file: "v000/species_common_name.yml"
 
   - include:
+      file: "v000/observation.yml"
+
+  - include:
       file: "v000/sequence.yml"
