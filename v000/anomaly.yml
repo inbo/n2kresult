@@ -25,10 +25,8 @@ databaseChangeLog:
                 constraints:
                   nullable: false
             - column:
-                name: datafield
+                name: observation
                 type: int
-                constraints:
-                  nullable: false
             - column:
                 name: analysis
                 type: integer
@@ -37,8 +35,6 @@ databaseChangeLog:
             - column:
                 name: parameter
                 type: int
-                constraints:
-                  nullable: false
 
         - createIndex:
             catalogName: cat
@@ -54,9 +50,9 @@ databaseChangeLog:
             catalogName: cat
             columns:
             - column:
-                name: datafield
+                name: observation
                 type: int
-            indexName: idx_anomaly_datafield
+            indexName: idx_anomaly_observation
             schemaName: public
             tableName: anomaly
 
@@ -92,12 +88,12 @@ databaseChangeLog:
           - onUpdate: 'RESTRICT'
 
         - addForeignKeyConstraint:
-          - constraintName: fk_anomaly_datafield
-          - baseColumnNames: datafield
+          - constraintName: fk_anomaly_observation
+          - baseColumnNames: observation
           - baseTableName: anomaly
           - baseTableSchemaName: public
           - referencedColumnNames: id
-          - referencedTableName: datafield
+          - referencedTableName: observation
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
           - onUpdate: 'RESTRICT'
