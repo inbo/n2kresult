@@ -28,9 +28,6 @@ databaseChangeLog:
                 name: version
                 type: varchar(255)
             - column:
-                name: revision
-                type: varchar(255)
-            - column:
                 name: origin
                 type: varchar(255)
 
@@ -44,13 +41,10 @@ databaseChangeLog:
                 name: version
                 type: varchar(255)
             - column:
-                name: revision
-                type: varchar(255)
-            - column:
                 name: origin
                 type: varchar(255)
             unique: true
-            indexName: idx_r_package_revision
+            indexName: idx_r_package_origin
             schemaName: public
             tableName: r_package
 
