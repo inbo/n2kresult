@@ -1,0 +1,66 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_analysis_relation
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "analysis_relation"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: analysis
+                type: int
+                constraints:
+                  nullable: false
+            - column:
+                name: source_analysis
+                type: int
+                constraints:
+                  nullable: false
+
+        - addPrimaryKey:
+            columnNames: source_analysis, analysis
+            constraintName: pk_analysis_relation
+            schemaName: public
+            tableName: analysis_relation
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_analysis_relation_analysis
+          - baseColumnNames: analysis
+          - baseTableName: analysis_relation
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: analysis
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_analysis_relation_analysis_source
+          - baseColumnNames: source_analysis
+          - baseTableName: analysis_relation
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: analysis
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: analysis
+                type: int
+            indexName: idx_analysis_relation_analysis
+            schemaName: public
+            tableName: analysis_relation
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.analysis_relation TO n2k_analysis;
+                 GRANT SELECT ON public.analysis_relation TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.analysis_relation FROM n2k_analysis;
+            REVOKE ALL ON public.analysis_relation FROM n2k_report;
+            DROP TABLE public.analysis_relation;

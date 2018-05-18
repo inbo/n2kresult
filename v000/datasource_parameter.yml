@@ -1,0 +1,44 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_datasource_parameter
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "datasource_parameter"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: id
+                type: serial
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  unique: true
+                  nullable: false
+            - column:
+                name: description
+                type: varchar(255)
+                constraints:
+                  nullable: false
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: description
+                type: varchar(255)
+            unique: true
+            indexName: idx_datasource_parameter_description
+            schemaName: public
+            tableName: datasource_parameter
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.datasource_parameter TO n2k_analysis;
+
+        - rollback:
+            REVOKE ALL ON public.datasource_parameter FROM n2k_analysis;
+            DROP TABLE public.datasource_parameter;

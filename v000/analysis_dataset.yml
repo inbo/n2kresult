@@ -1,0 +1,66 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_analysis_dataset
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "analysis_dataset"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: analysis
+                type: int
+                constraints:
+                  nullable: false
+            - column:
+                name: dataset
+                type: int
+                constraints:
+                  nullable: false
+
+        - addPrimaryKey:
+            columnNames: analysis, dataset
+            constraintName: pk_analysis_dataset
+            schemaName: public
+            tableName: analysis_dataset
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_analysis_dataset_analysis
+          - baseColumnNames: analysis
+          - baseTableName: analysis_dataset
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: analysis
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_analysis_dataset_dataset
+          - baseColumnNames: dataset
+          - baseTableName: analysis_dataset
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: dataset
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: dataset
+                type: int
+            indexName: idx_analysis_dataset_dataset
+            schemaName: public
+            tableName: analysis_dataset
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.analysis_dataset TO n2k_analysis;
+                 GRANT SELECT ON public.analysis_dataset TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.analysis_dataset FROM n2k_analysis;
+            REVOKE ALL ON public.analysis_dataset FROM n2k_report;
+            DROP TABLE public.analysis_dataset;

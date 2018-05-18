@@ -1,0 +1,74 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_contrast
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "contrast"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: id
+                type: serial
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  unique: true
+                  nullable: false
+            - column:
+                name: analysis
+                type: int
+                constraints:
+                  nullable: false
+            - column:
+                name: description
+                type: varchar(255)
+                constraints:
+                  nullable: false
+            - column:
+                name: estimate
+                type: float
+            - column:
+                name: lcl
+                type: float
+            - column:
+                name: ucl
+                type: float
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_contrast_analysis
+          - baseColumnNames: analysis
+          - baseTableName: contrast
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: analysis
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: analysis
+                type: int
+            - column:
+                name: description
+                type: varchar(255)
+            unique: true
+            indexName: idx_contrast_analysis_description
+            schemaName: public
+            tableName: contrast
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.contrast TO n2k_analysis;
+                 GRANT SELECT ON public.contrast TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.contrast FROM n2k_analysis;
+            REVOKE ALL ON public.contrast FROM n2k_report;
+            DROP TABLE public.contrast;

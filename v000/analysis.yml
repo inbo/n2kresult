@@ -1,0 +1,181 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_analysis
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "analysis"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: id
+                type: serial
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: file_fingerprint
+                type: varchar(40)
+                constraints:
+                  unique: true
+                  nullable: false
+            - column:
+                name: model_set
+                type: smallint
+                constraints:
+                  nullable: false
+            - column:
+                name: location_group
+                type: smallint
+                constraints:
+                  nullable: false
+            - column:
+                name: species_group
+                type: smallint
+                constraints:
+                  nullable: false
+            - column:
+                name: last_year
+                type: smallint
+            - column:
+                name: seed
+                type: int
+            - column:
+                name: analysis_version
+                type: int
+                constraints:
+                  nullable: false
+            - column:
+                name: analysis_date
+                type: TIMESTAMP WITH TIME ZONE
+            - column:
+                name: status
+                type: smallint
+                constraints:
+                  nullable: false
+            - column:
+                name: status_fingerprint
+                type: varchar(40)
+                constraints:
+                  nullable: false
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_analysis_model_set
+          - baseColumnNames: model_set
+          - baseTableName: analysis
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: model_set
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_analysis_location_group
+          - baseColumnNames: location_group
+          - baseTableName: analysis
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: location_group
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_analysis_species_group
+          - baseColumnNames: species_group
+          - baseTableName: analysis
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: species_group
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_analysis_analysis_version
+          - baseColumnNames: analysis_version
+          - baseTableName: analysis
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: analysis_version
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_analysis_status
+          - baseColumnNames: status
+          - baseTableName: analysis
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: status
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: model_set
+                type: smallint
+            indexName: idx_analysis_model_set
+            schemaName: public
+            tableName: analysis
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: location_group
+                type: smallint
+            indexName: idx_analysis_location_group
+            schemaName: public
+            tableName: analysis
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: species_group
+                type: smallint
+            indexName: idx_analysis_species_group
+            schemaName: public
+            tableName: analysis
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: analysis_version
+                type: int
+            indexName: idx_analysis_version
+            schemaName: public
+            tableName: analysis
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: status
+                type: smallint
+            indexName: idx_analysis_status
+            schemaName: public
+            tableName: analysis
+
+        - addUniqueConstraint:
+            catalogName: cat
+            columnNames: model_set, location_group, species_group, last_year, analysis_version, analysis_date
+            constraintName: const_analysis
+            schemaName: public
+            tableName: analysis
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.analysis TO n2k_analysis;
+                 GRANT SELECT ON public.analysis TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.analysis FROM n2k_analysis;
+            REVOKE ALL ON public.analysis FROM n2k_report;
+            DROP TABLE public.analysis;

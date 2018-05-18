@@ -1,0 +1,81 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_contrast_coefficient
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "contrast_coefficient"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: contrast
+                type: int
+                constraints:
+                  nullable: false
+            - column:
+                name: parameter
+                type: int
+                constraints:
+                  nullable: false
+            - column:
+                name: constant
+                type: float
+                constraints:
+                  nullable: false
+
+        - addPrimaryKey:
+            columnNames: contrast, parameter
+            constraintName: pk_contrast_coefficient
+            schemaName: public
+            tableName: contrast_coefficient
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_contrast_coefficient_contrast
+          - baseColumnNames: contrast
+          - baseTableName: contrast_coefficient
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: contrast
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_contrast_coefficient_parameter
+          - baseColumnNames: parameter
+          - baseTableName: contrast_coefficient
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: parameter
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: contrast
+                type: int
+            indexName: idx_contrast_coefficient_contrast
+            schemaName: public
+            tableName: contrast_coefficient
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: parameter
+                type: int
+            indexName: idx_contrast_coefficient_parameter
+            schemaName: public
+            tableName: contrast_coefficient
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.contrast_coefficient TO n2k_analysis;
+                 GRANT SELECT ON public.contrast_coefficient TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.contrast_coefficient FROM n2k_analysis;
+            REVOKE ALL ON public.contrast_coefficient FROM n2k_report;
+            DROP TABLE public.contrast_coefficient;

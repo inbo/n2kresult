@@ -1,0 +1,84 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_location
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "location"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: id
+                type: serial
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  nullable: false
+                  unique: true
+            - column:
+                name: description
+                type: varchar(255)
+                constraints:
+                  nullable: false
+            - column:
+                name: parent_location
+                type: int
+            - column:
+                name: datafield
+                type: int
+            - column:
+                name: external_code
+                type: varchar(255)
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_location_location
+          - baseColumnNames: parent_location
+          - baseTableName: location
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: location
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_location_datafield
+          - baseColumnNames: datafield
+          - baseTableName: location
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: datafield
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: datafield
+                type: int
+            - column:
+                name: external_code
+                type: varchar(255)
+            - column:
+                name: parent_location
+                type: int
+            unique: true
+            indexName: idx_location_external_code
+            schemaName: public
+            tableName: location
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.location TO n2k_analysis;
+                 GRANT UPDATE (description) ON public.location TO n2k_analysis;
+                 GRANT SELECT ON public.location TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.location FROM n2k_analysis;
+            REVOKE ALL ON public.location FROM n2k_report;
+            DROP TABLE public.location;

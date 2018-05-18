@@ -1,0 +1,71 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_source_species
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "source_species"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: id
+                type: smallserial
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  unique: true
+                  nullable: false
+            - column:
+                name: description
+                type: varchar(255)
+                constraints:
+                  nullable: false
+            - column:
+                name: external_code
+                type: varchar(255)
+                constraints:
+                  nullable: false
+            - column:
+                name: datafield
+                type: int
+                constraints:
+                  nullable: false
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_source_species_datafield
+          - baseColumnNames: datafield
+          - baseTableName: source_species
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: datafield
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: datafield
+                type: int
+            - column:
+                name: external_code
+                type: varchar(255)
+            unique: true
+            indexName: idx_source_species_datafield
+            schemaName: public
+            tableName: source_species
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.source_species TO n2k_analysis;
+                 GRANT UPDATE (description) ON public.source_species TO n2k_analysis;
+                 GRANT SELECT ON public.source_species TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.source_species FROM n2k_analysis;
+            REVOKE ALL ON public.source_species FROM n2k_report;
+            DROP TABLE public.source_species;

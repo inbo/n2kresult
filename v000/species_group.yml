@@ -1,0 +1,65 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_species_group
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "species_group"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: id
+                type: smallserial
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  unique: true
+                  nullable: false
+            - column:
+                name: description
+                type: varchar(255)
+                constraints:
+                  nullable: false
+            - column:
+                name: scheme
+                type: smallint
+                constraints:
+                  nullable: false
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_species_group_scheme
+          - baseColumnNames: scheme
+          - baseTableName: species_group
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: scheme
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: scheme
+                type: smallint
+            - column:
+                name: description
+                type: varchar(255)
+            unique: true
+            indexName: idx_species_group_scheme
+            schemaName: public
+            tableName: species_group
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.species_group TO n2k_analysis;
+                 GRANT SELECT ON public.species_group TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.species_group FROM n2k_analysis;
+            REVOKE ALL ON public.species_group FROM n2k_report;
+            DROP TABLE public.species_group;

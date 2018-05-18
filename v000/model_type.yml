@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_model_type
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "model_type"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: id
+                type: smallserial
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  unique: true
+                  nullable: false
+            - column:
+                name: description
+                type: varchar(255)
+                constraints:
+                  unique: true
+                  nullable: false
+            - column:
+                name: long_description
+                type: text
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.model_type TO n2k_analysis;
+                 GRANT UPDATE (long_description) ON public.model_type TO n2k_analysis;
+                 GRANT SELECT ON public.model_type TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.model_type FROM n2k_analysis;
+            REVOKE ALL ON public.model_type FROM n2k_report;
+            DROP TABLE public.model_type;

@@ -1,0 +1,88 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_parameter_estimate
+      author: thierry_onkelinx
+      changes:
+        - createTable:
+          - tableName: "parameter_estimate"
+          - schemaName: "public"
+          - columns:
+            - column:
+                name: analysis
+                type: int
+            - column:
+                name: parameter
+                type: int
+            - column:
+                name: estimate
+                type: float
+            - column:
+                name: lcl
+                type: float
+            - column:
+                name: ucl
+                type: float
+
+        - addPrimaryKey:
+            columnNames: analysis, parameter
+            constraintName: pk_parameter_estimate
+            schemaName: public
+            tableName: parameter_estimate
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_parameter_estimate_analysis
+          - baseColumnNames: analysis
+          - baseTableName: parameter_estimate
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: analysis
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - addForeignKeyConstraint:
+          - constraintName: fk_parameter_estimate_parameter
+          - baseColumnNames: parameter
+          - baseTableName: parameter_estimate
+          - baseTableSchemaName: public
+          - referencedColumnNames: id
+          - referencedTableName: parameter
+          - referencedTableSchemaName: public
+          - onDelete: 'RESTRICT'
+          - onUpdate: 'RESTRICT'
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: analysis
+                type: integer
+            indexName: idx_parameter_estimate_analysis
+            schemaName: public
+            tableName: parameter_estimate
+
+        - createIndex:
+            catalogName: cat
+            columns:
+            - column:
+                name: parameter
+                type: int
+            indexName: idx_parameter_estimate_parameter
+            schemaName: public
+            tableName: parameter_estimate
+
+        - addUniqueConstraint:
+            catalogName: cat
+            columnNames: analysis, parameter
+            constraintName: const_parameter_estimate_analysis_parameter
+            schemaName: public
+            tableName: parameter_estimate
+
+        - sql:
+            sql: GRANT SELECT, INSERT ON public.parameter_estimate TO n2k_analysis;
+                 GRANT SELECT ON public.parameter_estimate TO n2k_report;
+
+        - rollback:
+            REVOKE ALL ON public.parameter_estimate FROM n2k_analysis;
+            REVOKE ALL ON public.parameter_estimate FROM n2k_report;
+            DROP TABLE public.parameter_estimate;
