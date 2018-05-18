@@ -14,28 +14,23 @@ databaseChangeLog:
                   primaryKey: true
                   nullable: false
             - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  unique: true
+                  nullable: false
+            - column:
                 name: description
                 type: varchar(255)
                 constraints:
                   unique: true
                   nullable: false
 
-        - createTable:
-          - tableName: "datasource_type"
-          - schemaName: "staging"
-          - columns:
-            - column:
-                name: description
-                type: varchar(255)
-
         - sql:
             sql: GRANT SELECT, INSERT ON public.datasource_type TO n2k_analysis;
-                 GRANT SELECT, INSERT, TRUNCATE ON staging.datasource_type TO n2k_analysis;
                  GRANT SELECT ON public.datasource_type TO n2k_report;
 
         - rollback:
             REVOKE ALL ON public.datasource_type FROM n2k_analysis;
-            REVOKE ALL ON staging.datasource_type FROM n2k_analysis;
             REVOKE ALL ON public.datasource_type FROM n2k_report;
             DROP TABLE public.datasource_type;
-            DROP TABLE staging.datasource_type;

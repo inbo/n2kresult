@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create_r_package
+      id: create_datasource_parameter
       author: thierry_onkelinx
       changes:
         - createTable:
-          - tableName: "r_package"
+          - tableName: "datasource_parameter"
           - schemaName: "public"
           - columns:
             - column:
@@ -24,12 +24,6 @@ databaseChangeLog:
                 type: varchar(255)
                 constraints:
                   nullable: false
-            - column:
-                name: version
-                type: varchar(255)
-            - column:
-                name: origin
-                type: varchar(255)
 
         - createIndex:
             catalogName: cat
@@ -37,22 +31,14 @@ databaseChangeLog:
             - column:
                 name: description
                 type: varchar(255)
-            - column:
-                name: version
-                type: varchar(255)
-            - column:
-                name: origin
-                type: varchar(255)
             unique: true
-            indexName: idx_r_package_origin
+            indexName: idx_datasource_parameter_description
             schemaName: public
-            tableName: r_package
+            tableName: datasource_parameter
 
         - sql:
-            sql: GRANT SELECT, INSERT ON public.r_package TO n2k_analysis;
-                 GRANT SELECT ON public.r_package TO n2k_report;
+            sql: GRANT SELECT, INSERT ON public.datasource_parameter TO n2k_analysis;
 
         - rollback:
-            REVOKE ALL ON public.r_package FROM n2k_analysis;
-            REVOKE ALL ON public.r_package FROM n2k_report;
-            DROP TABLE public.r_package;
+            REVOKE ALL ON public.datasource_parameter FROM n2k_analysis;
+            DROP TABLE public.datasource_parameter;

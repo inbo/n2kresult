@@ -14,6 +14,12 @@ databaseChangeLog:
                   primaryKey: true
                   nullable: false
             - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  unique: true
+                  nullable: false
+            - column:
                 name: description
                 type: varchar(255)
                 constraints:
@@ -23,22 +29,6 @@ databaseChangeLog:
                 type: smallint
                 constraints:
                   nullable: false
-            - column:
-                name: connect_method
-                type: smallint
-                constraints:
-                  nullable: false
-            - column:
-                name: connection_string
-                type: varchar(255)
-                constraints:
-                  nullable: false
-            - column:
-                name: username
-                type: varchar(255)
-            - column:
-                name: password
-                type: varchar(255)
 
         - addForeignKeyConstraint:
           - constraintName: fk_datasource_datasource_type
@@ -47,17 +37,6 @@ databaseChangeLog:
           - baseTableSchemaName: public
           - referencedColumnNames: id
           - referencedTableName: datasource_type
-          - referencedTableSchemaName: public
-          - onDelete: 'RESTRICT'
-          - onUpdate: 'RESTRICT'
-
-        - addForeignKeyConstraint:
-          - constraintName: fk_datasource_connect_method
-          - baseColumnNames: connect_method
-          - baseTableName: datasource
-          - baseTableSchemaName: public
-          - referencedColumnNames: id
-          - referencedTableName: connect_method
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
           - onUpdate: 'RESTRICT'
@@ -86,47 +65,11 @@ databaseChangeLog:
             schemaName: public
             tableName: datasource
 
-        - createIndex:
-            catalogName: cat
-            columns:
-            - column:
-                name: connect_method
-                type: smallint
-            indexName: idx_datasource_connect_method
-            schemaName: public
-            tableName: datasource
-
-        - createTable:
-          - tableName: "datasource"
-          - schemaName: "staging"
-          - columns:
-            - column:
-                name: description
-                type: varchar(255)
-            - column:
-                name: datasource_type
-                type: varchar(255)
-            - column:
-                name: connect_method
-                type: varchar(255)
-            - column:
-                name: connection_string
-                type: varchar(255)
-            - column:
-                name: username
-                type: varchar(255)
-            - column:
-                name: password
-                type: varchar(255)
-
         - sql:
             sql: GRANT SELECT, INSERT ON public.datasource TO n2k_analysis;
-                 GRANT SELECT, INSERT, TRUNCATE ON staging.datasource TO n2k_analysis;
-                 GRANT SELECT (id, description, datasource_type) ON public.datasource TO n2k_report;
+                 GRANT SELECT ON public.datasource TO n2k_report;
 
         - rollback:
             REVOKE ALL ON public.datasource FROM n2k_analysis;
-            REVOKE ALL ON staging.datasource FROM n2k_analysis;
             REVOKE ALL ON public.datasource FROM n2k_report;
             DROP TABLE public.datasource;
-            DROP TABLE staging.datasource;

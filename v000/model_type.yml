@@ -14,34 +14,27 @@ databaseChangeLog:
                   primaryKey: true
                   nullable: false
             - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  unique: true
+                  nullable: false
+            - column:
                 name: description
                 type: varchar(255)
                 constraints:
                   unique: true
                   nullable: false
-
-        - createTable:
-          - tableName: "model_type"
-          - schemaName: "staging"
-          - columns:
             - column:
-                name: id
-                type: smallint
-            - column:
-                name: fingerprint
-                type: varchar(40)
-            - column:
-                name: description
-                type: varchar(255)
+                name: long_description
+                type: text
 
         - sql:
             sql: GRANT SELECT, INSERT ON public.model_type TO n2k_analysis;
-                 GRANT SELECT, INSERT, TRUNCATE ON staging.model_type TO n2k_analysis;
+                 GRANT UPDATE (long_description) ON public.model_type TO n2k_analysis;
                  GRANT SELECT ON public.model_type TO n2k_report;
 
         - rollback:
             REVOKE ALL ON public.model_type FROM n2k_analysis;
-            REVOKE ALL ON staging.model_type FROM n2k_analysis;
             REVOKE ALL ON public.model_type FROM n2k_report;
             DROP TABLE public.model_type;
-            DROP TABLE staging.model_type;

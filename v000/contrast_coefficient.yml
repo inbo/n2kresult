@@ -71,28 +71,11 @@ databaseChangeLog:
             schemaName: public
             tableName: contrast_coefficient
 
-        - createTable:
-          - tableName: "contrast_coefficient"
-          - schemaName: "staging"
-          - columns:
-            - column:
-                name: contrast
-                type: varchar(40)
-            - column:
-                name: parameter
-                type: varchar(40)
-            - column:
-                name: constant
-                type: float
-
         - sql:
             sql: GRANT SELECT, INSERT ON public.contrast_coefficient TO n2k_analysis;
-                 GRANT SELECT, INSERT, TRUNCATE ON staging.contrast_coefficient TO n2k_analysis;
                  GRANT SELECT ON public.contrast_coefficient TO n2k_report;
 
         - rollback:
             REVOKE ALL ON public.contrast_coefficient FROM n2k_analysis;
-            REVOKE ALL ON staging.contrast_coefficient FROM n2k_analysis;
             REVOKE ALL ON public.contrast_coefficient FROM n2k_report;
             DROP TABLE public.contrast_coefficient;
-            DROP TABLE staging.contrast_coefficient;

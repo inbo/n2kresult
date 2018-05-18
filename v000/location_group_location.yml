@@ -17,9 +17,18 @@ databaseChangeLog:
                 type: int
                 constraints:
                   nullable: false
+            - column:
+                name: spawn
+                type: TIMESTAMP WITH TIME ZONE
+                defaultValueDate: CURRENT_TIMESTAMP
+                constraints:
+                  nullable: false
+            - column:
+                name: destroy
+                type: TIMESTAMP WITH TIME ZONE
 
         - addPrimaryKey:
-            columnNames: location_group, location
+            columnNames: location_group, location, spawn
             constraintName: pk_location_group_location
             schemaName: public
             tableName: location_group_location
@@ -46,25 +55,16 @@ databaseChangeLog:
           - onDelete: 'RESTRICT'
           - onUpdate: 'RESTRICT'
 
-        - createTable:
-          - tableName: "location_group_location"
-          - schemaName: "staging"
-          - columns:
-            - column:
-                name: location_group
-                type: smallint
-            - column:
-                name: location
-                type: int
-
         - sql:
             sql: GRANT SELECT, INSERT ON public.location_group_location TO n2k_analysis;
-                 GRANT SELECT, INSERT, TRUNCATE ON staging.location_group_location TO n2k_analysis;
+                 GRANT UPDATE (destroy) ON public.location_group_location TO n2k_analysis;
                  GRANT SELECT ON public.location_group_location TO n2k_report;
+                 CREATE TRIGGER destroy_location_group_location BEFORE UPDATE ON public.location_group_location FOR EACH ROW EXECUTE PROCEDURE set_destroy_time();
+                 CREATE TRIGGER spawn_location_group_location BEFORE INSERT ON public.location_group_location FOR EACH ROW EXECUTE PROCEDURE set_spawn_time();
 
         - rollback:
+            DROP TRIGGER destroy_location_group_location ON public.location_group_location;
+            DROP TRIGGER spawn_location_group_location ON public.location_group_location;
             REVOKE ALL ON public.location_group_location FROM n2k_analysis;
-            REVOKE ALL ON staging.location_group_location FROM n2k_analysis;
             REVOKE ALL ON public.location_group_location FROM n2k_report;
             DROP TABLE public.location_group_location;
-            DROP TABLE staging.location_group_location;

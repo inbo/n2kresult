@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: sequence_usage
+      author: thierry_onkelinx
+      changes:
+        - sql:
+            sql: GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO n2k_analysis;
+
+        - rollback:
+            REVOKE ALL ON ALL SEQUENCES IN SCHEMA public FROM n2k_analysis;

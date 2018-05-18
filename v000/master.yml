@@ -1,5 +1,11 @@
 databaseChangeLog:
   - include:
+      file: "v000/set_spawn_time.yml"
+
+  - include:
+      file: "v000/set_destroy_time.yml"
+
+  - include:
       file: "v000/model_type.yml"
 
   - include:
@@ -25,9 +31,6 @@ databaseChangeLog:
 
   - include:
       file: "v000/datasource_type.yml"
-
-  - include:
-      file: "v000/connect_method.yml"
 
   - include:
       file: "v000/datasource.yml"
@@ -63,6 +66,12 @@ databaseChangeLog:
       file: "v000/anomaly_type.yml"
 
   - include:
+      file: "v000/location.yml"
+
+  - include:
+      file: "v000/observation.yml"
+
+  - include:
       file: "v000/anomaly.yml"
 
   - include:
@@ -70,9 +79,6 @@ databaseChangeLog:
 
   - include:
       file: "v000/contrast_coefficient.yml"
-
-  - include:
-      file: "v000/location.yml"
 
   - include:
       file: "v000/location_group_location.yml"
@@ -88,3 +94,18 @@ databaseChangeLog:
 
   - include:
       file: "v000/source_species_species.yml"
+
+  - include:
+      file: "v000/datasource_parameter.yml"
+
+  - include:
+      file: "v000/datasource_value.yml"
+
+  - include:
+      file: "v000/language.yml"
+
+  - include:
+      file: "v000/species_common_name.yml"
+
+  - include:
+      file: "v000/sequence.yml"

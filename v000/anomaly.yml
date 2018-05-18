@@ -8,10 +8,16 @@ databaseChangeLog:
           - schemaName: "public"
           - columns:
             - column:
+                name: id
+                type: serial
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
                 name: fingerprint
                 type: varchar(40)
                 constraints:
-                  primaryKey: true
+                  unique: true
                   nullable: false
             - column:
                 name: anomaly_type
@@ -19,10 +25,8 @@ databaseChangeLog:
                 constraints:
                   nullable: false
             - column:
-                name: datafield
+                name: observation
                 type: int
-                constraints:
-                  nullable: false
             - column:
                 name: analysis
                 type: integer
@@ -31,8 +35,6 @@ databaseChangeLog:
             - column:
                 name: parameter
                 type: int
-                constraints:
-                  nullable: false
 
         - createIndex:
             catalogName: cat
@@ -48,9 +50,9 @@ databaseChangeLog:
             catalogName: cat
             columns:
             - column:
-                name: datafield
+                name: observation
                 type: int
-            indexName: idx_anomaly_datafield
+            indexName: idx_anomaly_observation
             schemaName: public
             tableName: anomaly
 
@@ -86,12 +88,12 @@ databaseChangeLog:
           - onUpdate: 'RESTRICT'
 
         - addForeignKeyConstraint:
-          - constraintName: fk_anomaly_datafield
-          - baseColumnNames: datafield
+          - constraintName: fk_anomaly_observation
+          - baseColumnNames: observation
           - baseTableName: anomaly
           - baseTableSchemaName: public
           - referencedColumnNames: id
-          - referencedTableName: datafield
+          - referencedTableName: observation
           - referencedTableSchemaName: public
           - onDelete: 'RESTRICT'
           - onUpdate: 'RESTRICT'
@@ -118,34 +120,11 @@ databaseChangeLog:
           - onDelete: 'RESTRICT'
           - onUpdate: 'RESTRICT'
 
-        - createTable:
-          - tableName: "anomaly"
-          - schemaName: "staging"
-          - columns:
-            - column:
-                name: fingerprint
-                type: varchar(40)
-            - column:
-                name: anomaly_type
-                type: varchar(40)
-            - column:
-                name: datafield
-                type: varchar(40)
-            - column:
-                name: analysis
-                type: varchar(40)
-            - column:
-                name: parameter
-                type: varchar(40)
-
         - sql:
             sql: GRANT SELECT, INSERT ON public.anomaly TO n2k_analysis;
-                 GRANT SELECT, INSERT, TRUNCATE ON staging.anomaly TO n2k_analysis;
                  GRANT SELECT ON public.anomaly TO n2k_report;
 
         - rollback:
             REVOKE ALL ON public.anomaly FROM n2k_analysis;
-            REVOKE ALL ON staging.anomaly FROM n2k_analysis;
             REVOKE ALL ON public.anomaly FROM n2k_report;
             DROP TABLE public.anomaly;
-            DROP TABLE staging.anomaly;

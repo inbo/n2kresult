@@ -14,12 +14,13 @@ databaseChangeLog:
                   primaryKey: true
                   nullable: false
             - column:
-                name: filename
-                type: varchar(255)
+                name: fingerprint
+                type: varchar(40)
                 constraints:
+                  unique: true
                   nullable: false
             - column:
-                name: path
+                name: filename
                 type: varchar(255)
                 constraints:
                   nullable: false
@@ -29,11 +30,8 @@ databaseChangeLog:
                 constraints:
                   nullable: false
             - column:
-                name: obsolete
-                type: bit
-            - column:
                 name: import_date
-                type: time with timezone
+                type: timestamp with time zone
 
         - addForeignKeyConstraint:
           - constraintName: fk_dataset_datasource
@@ -53,9 +51,6 @@ databaseChangeLog:
                 name: datasource
                 type: int
             - column:
-                name: path
-                type: varchar(255)
-            - column:
                 name: filename
                 type: varchar(255)
             unique: true
@@ -63,40 +58,11 @@ databaseChangeLog:
             schemaName: public
             tableName: dataset
 
-        - createTable:
-          - tableName: "dataset"
-          - schemaName: "staging"
-          - columns:
-            - column:
-                name: id
-                type: int
-            - column:
-                name: fingerprint
-                type: varchar(40)
-            - column:
-                name: filename
-                type: varchar(255)
-            - column:
-                name: path
-                type: varchar(255)
-            - column:
-                name: datasource
-                type: varchar(40)
-            - column:
-                name: obsolete
-                type: bit
-            - column:
-                name: import_date
-                type: time with timezone
-
         - sql:
             sql: GRANT SELECT, INSERT ON public.dataset TO n2k_analysis;
-                 GRANT SELECT, INSERT, TRUNCATE ON staging.dataset TO n2k_analysis;
                  GRANT SELECT ON public.dataset TO n2k_report;
 
         - rollback:
             REVOKE ALL ON public.dataset FROM n2k_analysis;
-            REVOKE ALL ON staging.dataset FROM n2k_analysis;
             REVOKE ALL ON public.dataset FROM n2k_report;
             DROP TABLE public.dataset;
-            DROP TABLE staging.dataset;

@@ -63,28 +63,11 @@ databaseChangeLog:
             schemaName: public
             tableName: parameter
 
-        - createTable:
-          - tableName: "parameter"
-          - schemaName: "staging"
-          - columns:
-            - column:
-                name: fingerprint
-                type: varchar(40)
-            - column:
-                name: parent_parameter
-                type: varchar(40)
-            - column:
-                name: description
-                type: varchar(255)
-
         - sql:
             sql: GRANT SELECT, INSERT ON public.parameter TO n2k_analysis;
-                 GRANT SELECT, INSERT, TRUNCATE ON staging.parameter TO n2k_analysis;
                  GRANT SELECT ON public.parameter TO n2k_report;
 
         - rollback:
             REVOKE ALL ON public.parameter FROM n2k_analysis;
-            REVOKE ALL ON staging.parameter FROM n2k_analysis;
             REVOKE ALL ON public.parameter FROM n2k_report;
             DROP TABLE public.parameter;
-            DROP TABLE staging.parameter;

@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create_scheme
+      id: create_language
       author: thierry_onkelinx
       changes:
         - createTable:
-          - tableName: "scheme"
+          - tableName: "language"
           - schemaName: "public"
           - columns:
             - column:
@@ -20,6 +20,12 @@ databaseChangeLog:
                   unique: true
                   nullable: false
             - column:
+                name: code
+                type: varchar(2)
+                constraints:
+                  unique: true
+                  nullable: false
+            - column:
                 name: description
                 type: varchar(255)
                 constraints:
@@ -27,10 +33,10 @@ databaseChangeLog:
                   nullable: false
 
         - sql:
-            sql: GRANT SELECT, INSERT ON public.scheme TO n2k_analysis;
-                 GRANT SELECT ON public.scheme TO n2k_report;
+            sql: GRANT SELECT, INSERT ON public.language TO n2k_analysis;
+                 GRANT SELECT ON public.language TO n2k_report;
 
         - rollback:
-            REVOKE ALL ON public.scheme FROM n2k_analysis;
-            REVOKE ALL ON public.scheme FROM n2k_report;
-            DROP TABLE public.scheme;
+            REVOKE ALL ON public.language FROM n2k_analysis;
+            REVOKE ALL ON public.language FROM n2k_report;
+            DROP TABLE public.language;

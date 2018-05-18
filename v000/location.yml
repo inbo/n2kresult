@@ -14,6 +14,12 @@ databaseChangeLog:
                   primaryKey: true
                   nullable: false
             - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  nullable: false
+                  unique: true
+            - column:
                 name: description
                 type: varchar(255)
                 constraints:
@@ -21,8 +27,6 @@ databaseChangeLog:
             - column:
                 name: parent_location
                 type: int
-                constraints:
-                  nullable: false
             - column:
                 name: datafield
                 type: int
@@ -56,61 +60,25 @@ databaseChangeLog:
             catalogName: cat
             columns:
             - column:
-                name: parent_location
-                type: int
-            - column:
-                name: description
-                type: varchar(255)
-            unique: true
-            indexName: idx_location_description
-            schemaName: public
-            tableName: location
-
-        - createIndex:
-            catalogName: cat
-            columns:
-            - column:
                 name: datafield
                 type: int
             - column:
                 name: external_code
                 type: varchar(255)
+            - column:
+                name: parent_location
+                type: int
             unique: true
             indexName: idx_location_external_code
             schemaName: public
             tableName: location
 
-        - createTable:
-          - tableName: "location"
-          - schemaName: "staging"
-          - columns:
-            - column:
-                name: id
-                type: int
-            - column:
-                name: fingerprint
-                type: varchar(40)
-            - column:
-                name: description
-                type: varchar(255)
-            - column:
-                name: parent_location
-                type: varchar(40)
-            - column:
-                name: datafield
-                type: varchar(40)
-            - column:
-                name: external_code
-                type: varchar(255)
-
         - sql:
             sql: GRANT SELECT, INSERT ON public.location TO n2k_analysis;
-                 GRANT SELECT, INSERT, TRUNCATE ON staging.location TO n2k_analysis;
+                 GRANT UPDATE (description) ON public.location TO n2k_analysis;
                  GRANT SELECT ON public.location TO n2k_report;
 
         - rollback:
             REVOKE ALL ON public.location FROM n2k_analysis;
-            REVOKE ALL ON staging.location FROM n2k_analysis;
             REVOKE ALL ON public.location FROM n2k_report;
             DROP TABLE public.location;
-            DROP TABLE staging.location;

@@ -14,6 +14,12 @@ databaseChangeLog:
                   primaryKey: true
                   nullable: false
             - column:
+                name: fingerprint
+                type: varchar(40)
+                constraints:
+                  unique: true
+                  nullable: false
+            - column:
                 name: description
                 type: varchar(255)
                 constraints:
@@ -23,31 +29,12 @@ databaseChangeLog:
                 name: long_description
                 type: text
 
-        - createTable:
-          - tableName: "anomaly_type"
-          - schemaName: "staging"
-          - columns:
-            - column:
-                name: id
-                type: smallint
-            - column:
-                name: fingerprint
-                type: varchar(40)
-            - column:
-                name: description
-                type: varchar(255)
-            - column:
-                name: long_description
-                type: text
-
         - sql:
             sql: GRANT SELECT, INSERT ON public.anomaly_type TO n2k_analysis;
-                 GRANT SELECT, INSERT, TRUNCATE ON staging.anomaly_type TO n2k_analysis;
+                 GRANT UPDATE (long_description) ON public.anomaly_type TO n2k_analysis;
                  GRANT SELECT ON public.anomaly_type TO n2k_report;
 
         - rollback:
             REVOKE ALL ON public.anomaly_type FROM n2k_analysis;
-            REVOKE ALL ON staging.anomaly_type FROM n2k_analysis;
             REVOKE ALL ON public.anomaly_type FROM n2k_report;
             DROP TABLE public.anomaly_type;
-            DROP TABLE staging.anomaly_type;
