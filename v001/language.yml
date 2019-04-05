@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: update_language
+      author: thierry_onkelinx
+      changes:
+        - sql:
+            GRANT UPDATE (description) ON public.language TO n2k_analysis;
+        - rollback:
+            REVOKE UPDATE (description) ON public.language FROM n2k_analysis;
