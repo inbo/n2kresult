@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: update_species
+      author: thierry_onkelinx
+      changes:
+        - sql:
+            GRANT UPDATE (scientific_name) ON public.species TO n2k_analysis;
+        - rollback:
+            REVOKE UPDATE (scientific_name) ON public.species FROM n2k_analysis;
