@@ -1,1 +1,1 @@
-~/liquibase/liquibase --changeLogFile=update.yml rollbackCount 100
+liquibase --changeLogFile=update.yml rollbackCount 100

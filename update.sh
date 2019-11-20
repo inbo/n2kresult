@@ -1,1 +1,1 @@
-~/liquibase/liquibase --changeLogFile=update.yml update
+liquibase --changeLogFile=update.yml update
