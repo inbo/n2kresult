@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: update_anomaly_serial
+      author: thierry_onkelinx
+      changes:
+        - sql:
+            CREATE SEQUENCE IF NOT EXISTS anomaly_id_seq AS INTEGER
+            OWNED BY anomaly.id;
+            GRANT USAGE ON SEQUENCE anomaly_id_seq TO n2k_analysis;
+            ALTER TABLE anomaly
+            ALTER COLUMN id
+            SET DEFAULT nextval('anomaly_id_seq');

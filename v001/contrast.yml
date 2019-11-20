@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: update_contrast_serial
+      author: thierry_onkelinx
+      changes:
+        - sql:
+            CREATE SEQUENCE IF NOT EXISTS contrast_id_seq AS INTEGER
+            OWNED BY contrast.id;
+            GRANT USAGE ON SEQUENCE contrast_id_seq TO n2k_analysis;
+            ALTER TABLE contrast
+            ALTER COLUMN id
+            SET DEFAULT nextval('contrast_id_seq');

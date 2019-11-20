@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: update_datasource_parameter_serial
+      author: thierry_onkelinx
+      changes:
+        - sql:
+            CREATE SEQUENCE IF NOT EXISTS datasource_parameter_id_seq AS INTEGER
+            OWNED BY datasource_parameter.id;
+            GRANT USAGE ON SEQUENCE datasource_parameter_id_seq TO n2k_analysis;
+            ALTER TABLE datasource_parameter
+            ALTER COLUMN id
+            SET DEFAULT nextval('datasource_parameter_id_seq');

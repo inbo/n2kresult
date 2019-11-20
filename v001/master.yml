@@ -4,3 +4,39 @@ databaseChangeLog:
 
   - include:
       file: "v001/species.yml"
+
+  - include:
+      file: "v001/datasource_parameter.yml"
+
+  - include:
+      file: "v001/r_package.yml"
+
+  - include:
+      file: "v001/contrast.yml"
+
+  - include:
+      file: "v001/observation.yml"
+
+  - include:
+      file: "v001/analysis_version.yml"
+
+  - include:
+      file: "v001/location.yml"
+
+  - include:
+      file: "v001/parameter.yml"
+
+  - include:
+      file: "v001/datasource.yml"
+
+  - include:
+      file: "v001/analysis.yml"
+
+  - include:
+      file: "v001/dataset.yml"
+
+  - include:
+      file: "v001/anomaly.yml"
+
+  - include:
+      file: "v001/datafield.yml"

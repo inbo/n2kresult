@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: update_analysis_serial
+      author: thierry_onkelinx
+      changes:
+        - sql:
+            CREATE SEQUENCE IF NOT EXISTS analysis_id_seq AS INTEGER
+            OWNED BY analysis.id;
+            GRANT USAGE ON SEQUENCE analysis_id_seq TO n2k_analysis;
+            ALTER TABLE analysis
+            ALTER COLUMN id
+            SET DEFAULT nextval('analysis_id_seq');

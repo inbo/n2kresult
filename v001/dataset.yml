@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: update_dataset_serial
+      author: thierry_onkelinx
+      changes:
+        - sql:
+            CREATE SEQUENCE IF NOT EXISTS dataset_id_seq AS INTEGER
+            OWNED BY dataset.id;
+            GRANT USAGE ON SEQUENCE dataset_id_seq TO n2k_analysis;
+            ALTER TABLE dataset
+            ALTER COLUMN id
+            SET DEFAULT nextval('dataset_id_seq');

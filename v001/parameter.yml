@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: update_parameter_serial
+      author: thierry_onkelinx
+      changes:
+        - sql:
+            CREATE SEQUENCE IF NOT EXISTS parameter_id_seq AS INTEGER
+            OWNED BY parameter.id;
+            GRANT USAGE ON SEQUENCE parameter_id_seq TO n2k_analysis;
+            ALTER TABLE parameter
+            ALTER COLUMN id
+            SET DEFAULT nextval('parameter_id_seq');

@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: update_r_package_serial
+      author: thierry_onkelinx
+      changes:
+        - sql:
+            CREATE SEQUENCE IF NOT EXISTS r_package_id_seq AS INTEGER
+            OWNED BY r_package.id;
+            GRANT USAGE ON SEQUENCE r_package_id_seq TO n2k_analysis;
+            ALTER TABLE r_package
+            ALTER COLUMN id
+            SET DEFAULT nextval('r_package_id_seq');

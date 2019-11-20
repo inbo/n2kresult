@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: update_location_serial
+      author: thierry_onkelinx
+      changes:
+        - sql:
+            CREATE SEQUENCE IF NOT EXISTS location_id_seq AS INTEGER
+            OWNED BY location.id;
+            GRANT USAGE ON SEQUENCE location_id_seq TO n2k_analysis;
+            ALTER TABLE location
+            ALTER COLUMN id
+            SET DEFAULT nextval('location_id_seq');
